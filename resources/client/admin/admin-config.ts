@@ -1,15 +1,15 @@
-import {dashboardIcons} from '@app/dashboard/dashboard-icons';
-import {SettingsNavItem} from '@common/admin/settings/settings-nav-config';
-import {message} from '@ui/i18n/message';
-import {FileClockIcon} from '@ui/icons/lucide/file-clock';
-import {AltRouteIcon} from '@ui/icons/material/AltRoute';
-import {ChromeReaderModeIcon} from '@ui/icons/material/ChromeReaderMode';
-import {FileCopyIcon} from '@ui/icons/material/FileCopy';
-import {ManageAccountsIcon} from '@ui/icons/material/ManageAccounts';
-import {SellIcon} from '@ui/icons/material/Sell';
-import {SettingsIcon} from '@ui/icons/material/Settings';
-import {TextFieldsIcon} from '@ui/icons/material/TextFields';
-import {TranslateIcon} from '@ui/icons/material/Translate';
+import { dashboardIcons } from '@app/dashboard/dashboard-icons';
+import { SettingsNavItem } from '@common/admin/settings/settings-nav-config';
+import { message } from '@ui/i18n/message';
+import { FileClockIcon } from '@ui/icons/lucide/file-clock';
+import { AltRouteIcon } from '@ui/icons/material/AltRoute';
+import { ChromeReaderModeIcon } from '@ui/icons/material/ChromeReaderMode';
+import { FileCopyIcon } from '@ui/icons/material/FileCopy';
+import { ManageAccountsIcon } from '@ui/icons/material/ManageAccounts';
+import { SellIcon } from '@ui/icons/material/Sell';
+import { SettingsIcon } from '@ui/icons/material/Settings';
+import { TextFieldsIcon } from '@ui/icons/material/TextFields';
+import { TranslateIcon } from '@ui/icons/material/Translate';
 
 // icons
 export const AdminSidebarIcons = {
@@ -43,7 +43,7 @@ export const AppSettingsNavConfig: SettingsNavItem[] = [
 ];
 
 // docs urls
-const base = 'https://support.vebto.com/hc/articles';
+const base = 'https://help.tijaraq.com/';
 export const AdminDocsUrls = {
   manualUpdate: `${base}/42/43/283`,
   settings: {

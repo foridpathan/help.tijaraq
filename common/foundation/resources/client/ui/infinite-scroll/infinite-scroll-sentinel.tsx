@@ -1,5 +1,5 @@
 import {UseSuspenseInfiniteQueryResult} from '@tanstack/react-query';
-import {UseInfiniteQueryResult} from '@tanstack/react-query/src/types';
+import {UseInfiniteQueryResult} from '@tanstack/react-query';
 import {opacityAnimation} from '@ui/animation/opacity-animation';
 import {Button} from '@ui/buttons/button';
 import {Trans} from '@ui/i18n/trans';

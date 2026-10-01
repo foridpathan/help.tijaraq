@@ -6,7 +6,7 @@ import {
 } from '@common/http/backend-response/pagination-response';
 import {apiClient} from '@common/http/query-client';
 import {SortDescriptor} from '@common/ui/tables/types/sort-descriptor';
-import {QueryKey} from '@tanstack/query-core/src/types';
+import {QueryKey} from '@tanstack/react-query';
 import {
   hashKey,
   InfiniteData,

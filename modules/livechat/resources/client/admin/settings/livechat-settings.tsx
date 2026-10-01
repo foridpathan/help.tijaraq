@@ -1,40 +1,40 @@
-import {AdminDocsUrls} from '@app/admin/admin-config';
-import {AdminSettings} from '@common/admin/settings/admin-settings';
-import {DocsLink} from '@common/admin/settings/layout/settings-links';
-import {useSettingsPageStore} from '@common/admin/settings/layout/settings-page-store';
+import { AdminDocsUrls } from '@app/admin/admin-config';
+import { AdminSettings } from '@common/admin/settings/admin-settings';
+import { DocsLink } from '@common/admin/settings/layout/settings-links';
+import { useSettingsPageStore } from '@common/admin/settings/layout/settings-page-store';
 import {
   SettingsWithPreview,
   useSettingsPreviewSrc,
 } from '@common/admin/settings/layout/settings-with-preview';
-import {useAdminSettings} from '@common/admin/settings/requests/use-admin-settings';
-import {ChatTimeoutSettings} from '@livechat/admin/settings/chat-timeouts-settings';
-import {ChatWidgetSettings} from '@livechat/admin/settings/chat-widget-settings';
-import {InstallModuleCard} from '@livechat/admin/settings/install-module-card';
-import {InstallWidgetSettings} from '@livechat/admin/settings/install-widget-settings';
+import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
+import { ChatTimeoutSettings } from '@livechat/admin/settings/chat-timeouts-settings';
+import { ChatWidgetSettings } from '@livechat/admin/settings/chat-widget-settings';
+import { InstallModuleCard } from '@livechat/admin/settings/install-module-card';
+import { InstallWidgetSettings } from '@livechat/admin/settings/install-widget-settings';
 import {
   chatSettingsRoutes,
   chatSettingsTabs,
   useChatSettingsNav,
   useDefaultChatSettingsRoute,
 } from '@livechat/admin/settings/use-chat-settings-nav';
-import {Button} from '@ui/buttons/button';
-import {LinkStyle} from '@ui/buttons/external-link';
-import {FormTextField} from '@ui/forms/input-field/text-field/text-field';
-import {FormSwitch} from '@ui/forms/toggle/switch';
-import {Trans} from '@ui/i18n/trans';
-import {AdminPanelSettingsIcon} from '@ui/icons/material/AdminPanelSettings';
-import {AssignmentIndIcon} from '@ui/icons/material/AssignmentInd';
-import {ChatIcon} from '@ui/icons/material/Chat';
-import {PersonIcon} from '@ui/icons/material/Person';
-import {RouteIcon} from '@ui/icons/material/Route';
-import {useSettings} from '@ui/settings/use-settings';
-import {Tab} from '@ui/tabs/tab';
-import {TabList} from '@ui/tabs/tab-list';
-import {Tabs} from '@ui/tabs/tabs';
+import { Button } from '@ui/buttons/button';
+import { LinkStyle } from '@ui/buttons/external-link';
+import { FormTextField } from '@ui/forms/input-field/text-field/text-field';
+import { FormSwitch } from '@ui/forms/toggle/switch';
+import { Trans } from '@ui/i18n/trans';
+import { AdminPanelSettingsIcon } from '@ui/icons/material/AdminPanelSettings';
+import { AssignmentIndIcon } from '@ui/icons/material/AssignmentInd';
+import { ChatIcon } from '@ui/icons/material/Chat';
+import { PersonIcon } from '@ui/icons/material/Person';
+import { RouteIcon } from '@ui/icons/material/Route';
+import { useSettings } from '@ui/settings/use-settings';
+import { Tab } from '@ui/tabs/tab';
+import { TabList } from '@ui/tabs/tab-list';
+import { Tabs } from '@ui/tabs/tabs';
 import useClipboard from '@ui/utils/hooks/use-clipboard';
-import {Fragment} from 'react';
-import {useForm} from 'react-hook-form';
-import {BlockerFunction, Link} from 'react-router';
+import { Fragment } from 'react';
+import { useForm } from 'react-hook-form';
+import { BlockerFunction, Link } from 'react-router';
 
 const allowNavigation: BlockerFunction = ({currentLocation, nextLocation}) => {
   const currentTab = new URLSearchParams(currentLocation.search).get('tab');
@@ -177,7 +177,7 @@ function SecuritySettings() {
                 a: (chunk: string) => (
                   <Link
                     className="underline"
-                    to="https://support.vebto.com/hc/articles/42/71/239/identifying-logged-in-users-in-livechat-widget"
+                    to="#"
                     target="_blank"
                   >
                     {chunk}
@@ -194,14 +194,14 @@ function SecuritySettings() {
           <DocsLink
             size="sm"
             icon={<PersonIcon />}
-            link="https://support.vebto.com/hc/articles/42/71/239/identifying-logged-in-users-in-livechat-widget"
+            link="#"
           >
             <Trans message="Identifying logged in users" />
           </DocsLink>
           <DocsLink
             size="sm"
             icon={<AdminPanelSettingsIcon />}
-            link="https://support.vebto.com/hc/articles/42/71/238/enforcing-identity-verification-in-livechat-widget"
+            link="#"
           >
             <Trans message="Enforce identity verifications" />
           </DocsLink>

@@ -1,16 +1,16 @@
-import {AdminDocsUrls} from '@app/admin/admin-config';
-import {AdminSettings} from '@common/admin/settings/admin-settings';
-import {SettingsErrorGroup} from '@common/admin/settings/layout/settings-error-group';
-import {AdminSettingsLayout} from '@common/admin/settings/layout/settings-layout';
-import {DocsLink} from '@common/admin/settings/layout/settings-links';
-import {SettingsPanel} from '@common/admin/settings/layout/settings-panel';
-import {useAdminSettings} from '@common/admin/settings/requests/use-admin-settings';
-import {FormTextField} from '@ui/forms/input-field/text-field/text-field';
-import {FormSwitch} from '@ui/forms/toggle/switch';
-import {Trans} from '@ui/i18n/trans';
-import {useTrans} from '@ui/i18n/use-trans';
-import {Fragment} from 'react';
-import {useForm, useFormContext} from 'react-hook-form';
+import { AdminDocsUrls } from '@app/admin/admin-config';
+import { AdminSettings } from '@common/admin/settings/admin-settings';
+import { SettingsErrorGroup } from '@common/admin/settings/layout/settings-error-group';
+import { AdminSettingsLayout } from '@common/admin/settings/layout/settings-layout';
+import { DocsLink } from '@common/admin/settings/layout/settings-links';
+import { SettingsPanel } from '@common/admin/settings/layout/settings-panel';
+import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
+import { FormTextField } from '@ui/forms/input-field/text-field/text-field';
+import { FormSwitch } from '@ui/forms/toggle/switch';
+import { Trans } from '@ui/i18n/trans';
+import { useTrans } from '@ui/i18n/use-trans';
+import { Fragment } from 'react';
+import { useForm, useFormContext } from 'react-hook-form';
 
 export function Component() {
   const {trans} = useTrans();
@@ -87,7 +87,7 @@ function PaypalSection() {
         <Trans message="Configure PayPal payment gateway integration." />
       }
       link={
-        <DocsLink link="https://support.vebto.com/hc/articles/147/configuring-paypal">
+        <DocsLink link="#">
           <Trans message="How to set up PayPal" />
         </DocsLink>
       }
@@ -153,7 +153,7 @@ function StripeSection() {
         <Trans message="Configure Stripe payment gateway integration." />
       }
       link={
-        <DocsLink link="https://support.vebto.com/hc/articles/148/configuring-stripe">
+        <DocsLink link="#">
           <Trans message="How to set up Stripe" />
         </DocsLink>
       }

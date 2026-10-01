@@ -1,25 +1,25 @@
-import {AdminDocsUrls} from '@app/admin/admin-config';
-import {AdminSettings} from '@common/admin/settings/admin-settings';
-import {AdminSettingsLayout} from '@common/admin/settings/layout/settings-layout';
-import {DocsLink} from '@common/admin/settings/layout/settings-links';
-import {SettingsPanel} from '@common/admin/settings/layout/settings-panel';
-import {useAdminSettings} from '@common/admin/settings/requests/use-admin-settings';
-import {InstallModuleCard} from '@livechat/admin/settings/install-module-card';
-import {LinkStyle} from '@ui/buttons/external-link';
-import {FormComboBox} from '@ui/forms/combobox/form-combobox';
-import {FormTextField} from '@ui/forms/input-field/text-field/text-field';
-import {Item} from '@ui/forms/listbox/item';
-import {FormSelect} from '@ui/forms/select/select';
-import {message} from '@ui/i18n/message';
-import {Trans} from '@ui/i18n/trans';
-import {useTrans} from '@ui/i18n/use-trans';
-import {ChatbotIcon} from '@ui/icons/lucide/chatbot-icon';
-import {OpenInNewIcon} from '@ui/icons/material/OpenInNew';
-import {useSettings} from '@ui/settings/use-settings';
+import { AdminDocsUrls } from '@app/admin/admin-config';
+import { AdminSettings } from '@common/admin/settings/admin-settings';
+import { AdminSettingsLayout } from '@common/admin/settings/layout/settings-layout';
+import { DocsLink } from '@common/admin/settings/layout/settings-links';
+import { SettingsPanel } from '@common/admin/settings/layout/settings-panel';
+import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
+import { InstallModuleCard } from '@livechat/admin/settings/install-module-card';
+import { LinkStyle } from '@ui/buttons/external-link';
+import { FormComboBox } from '@ui/forms/combobox/form-combobox';
+import { FormTextField } from '@ui/forms/input-field/text-field/text-field';
+import { Item } from '@ui/forms/listbox/item';
+import { FormSelect } from '@ui/forms/select/select';
+import { message } from '@ui/i18n/message';
+import { Trans } from '@ui/i18n/trans';
+import { useTrans } from '@ui/i18n/use-trans';
+import { ChatbotIcon } from '@ui/icons/lucide/chatbot-icon';
+import { OpenInNewIcon } from '@ui/icons/material/OpenInNew';
+import { useSettings } from '@ui/settings/use-settings';
 import clsx from 'clsx';
-import {ReactNode} from 'react';
-import {useForm, useWatch} from 'react-hook-form';
-import {Link} from 'react-router';
+import { ReactNode } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
+import { Link } from 'react-router';
 
 export function Component() {
   const {modules} = useSettings();
@@ -81,7 +81,7 @@ function AiAgentSection() {
         <Trans message="Choose which LLM provider and model to use for AI functionality." />
       }
       link={
-        <DocsLink link="https://support.vebto.com/hc/articles/42/68/227/advanced-ai-settings" />
+        <DocsLink link="#" />
       }
     >
       <FormSelect
@@ -109,7 +109,7 @@ function EmbeddingsSection() {
         <Trans message="Configure how knowledge like websites, documents and articles are ingested." />
       }
       link={
-        <DocsLink link="https://support.vebto.com/hc/articles/42/68/227/advanced-ai-settings#knowledge-ingesting" />
+        <DocsLink link="#" />
       }
     >
       <FormSelect

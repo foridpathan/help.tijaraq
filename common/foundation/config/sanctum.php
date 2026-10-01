@@ -2,7 +2,7 @@
 
 use Common\Core\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Laravel\Sanctum\Http\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\AuthenticateSession;
 
 return [
     'middleware' => [

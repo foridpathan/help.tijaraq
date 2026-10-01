@@ -1,30 +1,29 @@
-import {AdminDocsUrls} from '@app/admin/admin-config';
-import {UploadType} from '@app/site-config';
-import {AdminSettings} from '@common/admin/settings/admin-settings';
-import {AdminSettingsLayout} from '@common/admin/settings/layout/settings-layout';
-import {DocsLink} from '@common/admin/settings/layout/settings-links';
-import {SettingsPanel} from '@common/admin/settings/layout/settings-panel';
-import {useAdminSettings} from '@common/admin/settings/requests/use-admin-settings';
-import {useGenerateSitemap} from '@common/admin/settings/requests/use-generate-sitemap';
-import {FormImageSelector} from '@common/uploads/components/image-selector';
-import {Button} from '@ui/buttons/button';
-import {ExternalLink} from '@ui/buttons/external-link';
+import { AdminDocsUrls } from '@app/admin/admin-config';
+import { UploadType } from '@app/site-config';
+import { AdminSettings } from '@common/admin/settings/admin-settings';
+import { AdminSettingsLayout } from '@common/admin/settings/layout/settings-layout';
+import { SettingsPanel } from '@common/admin/settings/layout/settings-panel';
+import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
+import { useGenerateSitemap } from '@common/admin/settings/requests/use-generate-sitemap';
+import { FormImageSelector } from '@common/uploads/components/image-selector';
+import { Button } from '@ui/buttons/button';
+import { ExternalLink } from '@ui/buttons/external-link';
 import {
   FormTextField,
   TextField,
 } from '@ui/forms/input-field/text-field/text-field';
-import {Trans} from '@ui/i18n/trans';
-import {useSettings} from '@ui/settings/use-settings';
+import { Trans } from '@ui/i18n/trans';
+import { useSettings } from '@ui/settings/use-settings';
 import deepmerge from 'deepmerge';
-import {ReactNode, useMemo} from 'react';
-import {useForm} from 'react-hook-form';
+import { ReactNode, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface Props {
   children?: ReactNode;
-  defaultValues?: {client?: Partial<AdminSettings['client']>};
+  defaultValues?: { client?: Partial<AdminSettings['client']> };
 }
-export function Component({children, defaultValues}: Props) {
-  const {data} = useAdminSettings();
+export function Component({ children, defaultValues }: Props) {
+  const { data } = useAdminSettings();
 
   const mergedDefaultValues = useMemo(() => {
     return deepmerge(defaultValues ?? {}, {
@@ -68,7 +67,7 @@ export function Component({children, defaultValues}: Props) {
 }
 
 function SiteUrlSection() {
-  const {data} = useAdminSettings();
+  const { data } = useAdminSettings();
 
   if (!data) return null;
 
@@ -100,9 +99,7 @@ function SiteUrlSection() {
         </div>
       }
       link={
-        <DocsLink link="https://support.vebto.com/hc/articles/35/primary-site-url">
-          <Trans message="What is a primary site url?" />
-        </DocsLink>
+        <Trans message="What is a primary site url?" />
       }
     >
       <TextField
@@ -208,8 +205,8 @@ interface ImageSelectorProps {
   type: keyof AdminSettings['client']['branding'];
   title?: string;
 }
-function BrandingImageSelector({type, title}: ImageSelectorProps) {
-  const {data} = useAdminSettings();
+function BrandingImageSelector({ type, title }: ImageSelectorProps) {
+  const { data } = useAdminSettings();
   return (
     <FormImageSelector
       className="max-w-max"
@@ -224,7 +221,7 @@ function BrandingImageSelector({type, title}: ImageSelectorProps) {
 
 function SitemapSection() {
   const generateSitemap = useGenerateSitemap();
-  const {base_url} = useSettings();
+  const { base_url } = useSettings();
 
   const url = `${base_url}/storage/sitemaps/sitemap-index.xml`;
   const link = <ExternalLink href={url}>{url}</ExternalLink>;
