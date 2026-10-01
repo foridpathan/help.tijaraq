@@ -17,7 +17,6 @@
 
     <div>
         <h4>Support and questions</h4>
-        <div>If you have any issues or questions please submit a ticket <a class="text-primary underline" target="_blank" href="https://support.vebto.com">here</a>. Thanks!</div>
     </div>
 
     <x-install-button href="/">Done</x-install-button>
