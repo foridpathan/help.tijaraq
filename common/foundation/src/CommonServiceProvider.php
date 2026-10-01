@@ -34,10 +34,8 @@ use Common\Core\Commands\SeedCommand;
 use Common\Core\Commands\UpdateSimplePaginateTables;
 use Common\Core\Contracts\AppUrlGenerator;
 use Common\Core\Exceptions\BaseExceptionHandler;
-use Common\Core\Install\Commands\CheckIfUpdateAvailableCommand;
 use Common\Core\Install\RedirectIfNotInstalledMiddleware;
 use Common\Core\Install\Commands\RunUpdateActionsCommand;
-use Common\Core\Install\Commands\UpdateAppCommand;
 use Common\Core\Middleware\EnableDebugIfLoggedInAsAdmin;
 use Common\Core\Middleware\EnsureEmailIsVerified;
 use Common\Core\Middleware\EnsureFrontendRequestsAreStateful;
@@ -555,8 +553,6 @@ class CommonServiceProvider extends ServiceProvider
             CleanLogTables::class,
             ImportRecordsIntoScoutCommand::class,
             CountUploadingBackendFiles::class,
-            CheckIfUpdateAvailableCommand::class,
-            UpdateAppCommand::class,
         ];
 
         if ($this->app->environment() !== 'production') {
@@ -599,12 +595,6 @@ class CommonServiceProvider extends ServiceProvider
             $schedule
                 ->command(CountUploadingBackendFiles::class)
                 ->everyFifteenMinutes();
-
-            if (config('app.envato_purchase_code')) {
-                $schedule
-                    ->command(CheckIfUpdateAvailableCommand::class)
-                    ->dailyAt('03:20');
-            }
 
             // wait until artisan is booted to monitor schedule, otherwise commands
             // registered via console.php file will not be available yet

@@ -29,16 +29,6 @@ class LoadSettingsManagerData
             'custom_code' => $this->loadCustomCode(),
             'defaults' => $this->loadDefaults(),
             'modules' => config('modules'),
-            'update_available' =>
-                Cache::get('app_latest_version') &&
-                version_compare(
-                    config('app.version'),
-                    Cache::get('app_latest_version'),
-                ) < 0,
-            'license' => [
-                'purchase_code' => config('app.envato_purchase_code'),
-                'item_id' => config('app.envato_item_id'),
-            ],
             'uploading' => [
                 'file_counts' => Cache::get(
                     CountUploadingBackendFiles::CACHE_KEY,

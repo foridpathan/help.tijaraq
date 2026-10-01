@@ -1,11 +1,7 @@
 import {CacheSettings} from '@common/admin/settings/pages/system-settings/cache-settings';
-import {LicensePage} from '@common/admin/settings/pages/system-settings/license-page';
 import {LoggingSettings} from '@common/admin/settings/pages/system-settings/logging-settings';
 import {QueueSettings} from '@common/admin/settings/pages/system-settings/queue-settings';
-import {UpdatePage} from '@common/admin/settings/pages/system-settings/update-page/update-page';
 import {WebsocketSettings} from '@common/admin/settings/pages/system-settings/websocket-settings';
-import {useAdminSettings} from '@common/admin/settings/requests/use-admin-settings';
-import {Chip} from '@ui/forms/input-field/chip-field/chip';
 import {message} from '@ui/i18n/message';
 import {Trans} from '@ui/i18n/trans';
 import {useSettings} from '@ui/settings/use-settings';
@@ -16,14 +12,6 @@ import {Fragment, ReactElement, useMemo} from 'react';
 import {useSearchParams} from 'react-router';
 
 const allTabs = [
-  {
-    name: 'license',
-    label: message('License'),
-  },
-  {
-    name: 'updates',
-    label: message('Updates'),
-  },
   {
     name: 'cache',
     label: message('Cache'),
@@ -56,7 +44,7 @@ export function Component() {
     [websockets],
   );
 
-  const tabName = (searchParams.get('tab') ?? 'license') as TabName;
+  const tabName = (searchParams.get('tab') ?? 'cache') as TabName;
   const tabIndex = filteredTabs.findIndex(tab => tab.name === tabName) ?? 0;
 
   return (
@@ -90,13 +78,7 @@ interface TabContentProps {
   tabs: ReactElement;
 }
 function TabContent({tabName, tabs}: TabContentProps) {
-  const {data} = useAdminSettings();
   const title = <Trans message="System" />;
-  const rightContent = (
-    <Chip size="sm" fontWeight="font-semibold">
-      {data.server.app_version}
-    </Chip>
-  );
   switch (tabName) {
     case 'cache':
       return <CacheSettings tabs={tabs} title={title} />;
@@ -106,13 +88,5 @@ function TabContent({tabName, tabs}: TabContentProps) {
       return <LoggingSettings tabs={tabs} title={title} />;
     case 'websockets':
       return <WebsocketSettings tabs={tabs} title={title} />;
-    case 'license':
-      return (
-        <LicensePage tabs={tabs} title={title} rightContent={rightContent} />
-      );
-    case 'updates':
-      return (
-        <UpdatePage tabs={tabs} title={title} rightContent={rightContent} />
-      );
   }
 }

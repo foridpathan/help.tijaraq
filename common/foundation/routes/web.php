@@ -5,7 +5,6 @@ use Common\Auth\Controllers\TwoFactorQrCodeController;
 use Common\Billing\Invoices\InvoiceController;
 use Common\Core\Controllers\HomeController;
 use Common\Core\Install\InstallController;
-use Common\Core\Install\UpdateController;
 use Common\Csv\BaseCsvExportController;
 use Common\Domains\CustomDomainController;
 use Common\Files\Controllers\DownloadFileController;
@@ -21,9 +20,6 @@ Route::group(['middleware' => 'web'], function () {
         'download',
     ]);
 
-    // UPDATE
-    Route::get('update', [UpdateController::class, 'show']);
-    Route::get('update/perform', [UpdateController::class, 'runManualUpdateActions']);
 
     // make sure workspace version of login and register pages are shown on frontend
     Route::get('workspace/join/login', [HomeController::class, 'show']);
