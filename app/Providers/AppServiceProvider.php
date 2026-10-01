@@ -17,7 +17,6 @@ use App\Conversations\Models\Conversation;
 use App\Conversations\Policies\ConversationFileEntryPolicy;
 use App\Conversations\Policies\ConversationPolicy;
 use App\Core\AppBootstrapData;
-use App\Core\Commands\ResetDemoSiteCommand;
 use App\Core\Listeners\DeleteUserRelations;
 use App\Core\Modules;
 use App\Core\UrlGenerator;
@@ -111,7 +110,6 @@ class AppServiceProvider extends ServiceProvider
     protected function scheduleCommands(): void
     {
         $this->commands([
-            ResetDemoSiteCommand::class,
             ImportEmailsViaImap::class,
             DeleteTestConversationsCommand::class,
         ]);
