@@ -34,6 +34,14 @@ if (settings('incoming_email.gmail.enabled')) {
         ->withoutOverlapping();
 }
 
+// shared hosting friendly queue: drain the database queue from the single
+// cron entry (no long running worker needed)
+if (config('queue.default') !== 'sync') {
+    Schedule::command('queue:work --stop-when-empty --max-time=50 --tries=3')
+        ->everyMinute()
+        ->withoutOverlapping(2);
+}
+
 Schedule::command(DeleteTestConversationsCommand::class)
     ->hourly();
 

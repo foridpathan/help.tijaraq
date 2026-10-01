@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DefaultGroupSeeder::class);
         $this->call(InternalAttributesSeeder::class);
+        $this->call(TijaraqDefaultsSeeder::class);
         $this->call(ConversationStatusesSeeder::class);
         $this->call(DefaultViewsSeeder::class);
 
