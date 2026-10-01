@@ -40,27 +40,27 @@ Route::post('search-term', [SearchTermController::class, 'storeSearchSession']);
 Route::post('tickets/mail/incoming', [
     EmailApiWebhookController::class,
     'handleIncoming',
-])->withoutMiddleware(VerifyCsrfToken::class);
+])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 Route::post('tickets/mail/failed', [
     EmailApiWebhookController::class,
     'handleFailed',
-])->withoutMiddleware(VerifyCsrfToken::class);
+])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 Route::post('tickets/mail/incoming/mailgun', [
     MailgunWebhookController::class,
     'handleIncoming',
-])->withoutMiddleware(VerifyCsrfToken::class);
+])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 Route::post('tickets/mail/failed/mailgun', [
     MailgunWebhookController::class,
     'handleFailed',
-])->withoutMiddleware(VerifyCsrfToken::class);
+])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 Route::post('tickets/mail/incoming/gmail', [
     GmailWebhookController::class,
     'handle',
-])->withoutMiddleware(VerifyCsrfToken::class);
+])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 //FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED
 Route::get('/', HcLandingPageController::class);

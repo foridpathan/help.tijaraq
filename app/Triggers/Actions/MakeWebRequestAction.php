@@ -15,6 +15,11 @@ class MakeWebRequestAction implements TriggerActionInterface
     ): Conversation {
         $url = $action['value']['url'] ?? null;
 
+        if ($url && !$this->isPublicHttpUrl($url)) {
+            report(new Exception("Blocked trigger web request to $url"));
+            return $conversation;
+        }
+
         if ($url) {
             $payload = app(ReplacePlaceholders::class)->execute(
                 $action['value']['payload'] ?? '',
@@ -31,5 +36,41 @@ class MakeWebRequestAction implements TriggerActionInterface
         }
 
         return $conversation;
+    }
+
+    // SSRF guard: only http(s) to hosts that resolve to public addresses
+    protected function isPublicHttpUrl(string $url): bool
+    {
+        $parts = parse_url($url);
+        if (
+            !$parts ||
+            !in_array($parts['scheme'] ?? '', ['http', 'https'], true) ||
+            empty($parts['host'])
+        ) {
+            return false;
+        }
+
+        $host = trim($parts['host'], '[]');
+        $ips = filter_var($host, FILTER_VALIDATE_IP)
+            ? [$host]
+            : (gethostbynamel($host) ?: []);
+
+        if (!$ips) {
+            return false;
+        }
+
+        foreach ($ips as $ip) {
+            if (
+                !filter_var(
+                    $ip,
+                    FILTER_VALIDATE_IP,
+                    FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
+                )
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

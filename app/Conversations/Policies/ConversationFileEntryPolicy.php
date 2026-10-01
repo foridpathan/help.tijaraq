@@ -43,6 +43,12 @@ class ConversationFileEntryPolicy extends FileEntryPolicy
                 return true;
             }
 
+            // ids from other model types must not be matched against
+            // conversation items, otherwise unrelated ids can collide
+            if ($value->model_type !== ConversationItem::MODEL_TYPE) {
+                continue;
+            }
+
             $conversationId = ConversationItem::query()
                 ->where('id', $value->model_id)
                 ->value('conversation_id');

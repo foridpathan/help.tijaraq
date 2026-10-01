@@ -42,6 +42,11 @@ class StoreFile
             // dont store php files in public disk
             ($payload->uploadType->public &&
                 $this->isPhpFile($payload, $fileOptions)) ||
+            // public files are served from the app origin, so scriptable
+            // formats would run as stored XSS (SVG only allowed for branding)
+            ($payload->uploadType->public &&
+                $payload->uploadType->name !== 'brandingImages' &&
+                $this->isScriptableFile($payload)) ||
             // prevent path traversal or storing at root in user specified folder
             ($payload->diskPrefix &&
                 (Str::contains($payload->diskPrefix, '..') ||
@@ -101,6 +106,20 @@ class StoreFile
         }
 
         return false;
+    }
+
+    protected function isScriptableFile(FileEntryPayload $payload): bool
+    {
+        return in_array(
+            Str::lower((string) $payload->clientExtension),
+            ['svg', 'svgz', 'html', 'htm', 'xhtml', 'shtml', 'xml', 'phar'],
+            true,
+        ) ||
+            in_array(
+                Str::lower((string) $payload->clientMime),
+                ['image/svg+xml', 'text/html', 'application/xhtml+xml'],
+                true,
+            );
     }
 
     protected function isPhpFile(

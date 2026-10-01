@@ -66,9 +66,9 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('helpdesk/customer/tickets', [CustomerTicketsController::class, 'index']);
         Route::get('helpdesk/customer/tickets/{id}', [CustomerTicketsController::class, 'show']);
         Route::get('helpdesk/customer/conversations/{conversationId}/messages', [CustomerMessagesController::class, 'index']);
-        Route::post('helpdesk/customer/conversations/{conversationId}/messages', [CustomerMessagesController::class, 'store']);
+        Route::post('helpdesk/customer/conversations/{conversationId}/messages', [CustomerMessagesController::class, 'store'])->middleware('throttle:30,1');
         Route::post('helpdesk/customer/conversations/{id}/mark-as-solved', [CustomerTicketsController::class, 'markConversationAsSolved']);
-        Route::post('helpdesk/customer/tickets', [CustomerTicketsController::class, 'store']);
+        Route::post('helpdesk/customer/tickets', [CustomerTicketsController::class, 'store'])->middleware('throttle:10,1');
         Route::get('helpdesk/customer-new-ticket-page-config', CustomerNewTicketPageDataController::class);
 
         // CONVERSATION TAGS

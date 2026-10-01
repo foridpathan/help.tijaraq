@@ -40,7 +40,12 @@ class AppBootstrapData extends BaseBootstrapData
         unset($this->data['settings']['hc.newTicket']);
 
         // if auto loading livechat widget on help center, include hashed customer data
-        if (settings('hc.showLivechat') && Auth::check()) {
+        // never sign with an empty key, anyone could forge the hash
+        if (
+            settings('hc.showLivechat') &&
+            settings('app.widget_hmac_secret') &&
+            Auth::check()
+        ) {
             $this->data['livechatWidgetUser'] = [
                 'name' => Auth::user()->name,
                 'email' => Auth::user()->email,

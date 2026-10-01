@@ -4,7 +4,17 @@ use App\Conversations\Commands\DeleteTestConversationsCommand;
 use App\Conversations\Email\Commands\ImportEmailsViaImap;
 use App\Conversations\Email\Commands\RefreshGmailSubscription;
 use App\Core\Commands\ResetDemoSiteCommand;
+use App\Webhooks\Controllers\GmailWebhookController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
+
+Artisan::command('helpdesk:gmail-webhook-url', function () {
+    $this->info(
+        url('tickets/mail/incoming/gmail') .
+            '?token=' .
+            GmailWebhookController::expectedToken(),
+    );
+})->purpose('Print the authenticated Gmail Pub/Sub push endpoint');
 
 if (config('app.demo')) {
     Schedule::command(ResetDemoSiteCommand::class)->dailyAt('03:25');

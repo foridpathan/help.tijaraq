@@ -60,18 +60,16 @@ class MailgunWebhookController extends BaseController
 
     protected function isValidRequest()
     {
-        if (!settings('incoming_email.mailgun.verify')) {
-            return true;
-        }
-
+        // signature verification is mandatory: unsigned requests could create
+        // tickets or inject replies as any sender
         $signature = is_array(request('signature'))
             ? request('signature')
             : request()->all();
 
         $apiKey = config('services.mailgun.secret');
-        $token = $signature['token'];
-        $timestamp = $signature['timestamp'];
-        $signature = $signature['signature'];
+        $token = $signature['token'] ?? null;
+        $timestamp = $signature['timestamp'] ?? null;
+        $signature = $signature['signature'] ?? null;
 
         if (!$apiKey || !$token || !$timestamp || !$signature) {
             return false;
@@ -83,6 +81,9 @@ class MailgunWebhookController extends BaseController
         }
 
         //returns true if signature is valid
-        return hash_hmac('sha256', $timestamp . $token, $apiKey) === $signature;
+        return hash_equals(
+            hash_hmac('sha256', $timestamp . $token, $apiKey),
+            (string) $signature,
+        );
     }
 }
