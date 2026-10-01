@@ -79,9 +79,10 @@
     "beyondcode/laravel-dump-server": "^2.1",
     "laravel/pail": "^1.2",
     "laravel/telescope": "^5.10",
+    "laravel/wayfinder": "^0.1.10",
     "nunomaduro/collision": "^8.1",
-    "rector/rector": "^0.13.10",
-    "laravel/wayfinder": "^0.1.10"
+    "phpunit/phpunit": "^11.5.50 || ^12.0",
+    "rector/rector": "^0.13.10"
   },
   "config": {
     "optimize-autoloader": true,
@@ -124,7 +125,9 @@
     }
   },
   "autoload-dev": {
-    "classmap": []
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
