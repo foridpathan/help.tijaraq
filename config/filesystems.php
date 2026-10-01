@@ -21,6 +21,7 @@ return [
             'defaults' => [
                 'accept' => [
                     'image',
+                    'video',
                     'application/pdf',
                     'text/plain',
                     'text/csv',
@@ -37,6 +38,8 @@ return [
                     'docx',
                     'xls',
                     'xlsx',
+                    'json',
+                    'log',
                 ],
                 'max_file_size' => '26214400', //25mb
             ],

@@ -231,3 +231,69 @@ Direct: `axios`, `nanoid`, `postcss`, `react-router`, `url-regex`, `vite`. Trans
 ---
 
 *Stage 1 complete. Waiting for approval ("proceed with Stage 2", optionally with an edited REMOVE list). Nothing has been removed.*
+
+---
+
+# Cleanup results (Stage 2)
+
+Branch `chore/helpdesk-audit-cleanup`. One commit per area; `git log --oneline` lists them. Everything below was verified on the local install unless marked otherwise.
+
+## What was removed
+
+| Area | Result |
+|---|---|
+| Vendor license check + remote self-updater | Deleted (`LicenseController`, `UpdateController`, `Updater/*`, update commands/views/routes, daily version check, license/update alerts, License and Updates tabs). **No code calls `support.vebto.com` any more.** The purchase code is read from `ENVATO_PURCHASE_CODE` in `.env` and is unused. Only documentation links to the vendor site remain in the admin UI. |
+| Envato module | `modules/envato` deleted with every reference (server and React client): buyer purchase codes, Envato login, Envato items on tickets/profile/reports, settings page, `purchase_codes`/`envato_items` migrations. 15 routes removed (395 → 380). |
+| Demo | `app/Demo/*`, the demo-reset command and schedule, `public/demo-files` deleted. |
+| Vendor promos | Support links removed from the installer pages. |
+| Dev-only dependency | `url-regex` (unused, high CVE) removed. |
+
+## What was fixed
+
+| Finding | Fix |
+|---|---|
+| S-01 dependencies | `composer audit`: 58 → 1 (low `firebase/php-jwt`, pinned by `google/apiclient`). `npm audit --omit=dev`: 19 → 0. |
+| S-02 Gmail webhook | HMAC token required (`php artisan helpdesk:gmail-webhook-url`), payload validated. **Existing Pub/Sub subscriptions must be updated to the new URL.** |
+| S-03 shared secrets | Removed from `env.example`; local Reverb credentials regenerated. Livechat identity hash is never signed with an empty key. |
+| S-04 Mailgun | Signature check mandatory, constant-time compare. |
+| S-05 updater routes | Removed with the updater. |
+| S-06 headers | `SecurityHeaders` middleware: nosniff, X-Frame-Options, Referrer-Policy, Permissions-Policy, HSTS on HTTPS. |
+| S-07 rate limits | Throttles on guest ticket creation (10/min), customer replies (30/min) and the inbound mail webhooks (120/min). |
+| S-08 public uploads | SVG/HTML/XML/PHAR blocked on public upload types except branding images. |
+| S-09 attachments | Allow-list: images, video, PDF, text/CSV/JSON/log, ZIP, Word/Excel. |
+| S-10 attachment policy | Lookup now restricted to `conversationItem` rows. |
+| S-12 SSRF | Trigger web requests only to public http(s) hosts. |
+| S-15 defaults | `env.example` ships `APP_ENV=production`, `APP_DEBUG=false`, `SESSION_SAME_SITE=lax`. |
+
+## TijaraQ configuration
+
+- App name "TijaraQ Help", mail from "TijaraQ Support", websockets off, `QUEUE_CONNECTION=database` in `env.example` (drained by the scheduler, one cron line).
+- Seeded departments (groups and ticket categories): Channels & Sync, Orders & Inventory, Couriers & Shipping, Billing & Plans, POS, Account & Access, General.
+- Seeded agent-only, nullable conversation fields: `tijaraq_company_id`, `tijaraq_plan`, `tijaraq_channel` (Shopify / WooCommerce / Daraz / POS / Other).
+- Locales `bn` and `ar` created (English text until translated). **No RTL support in the client.**
+
+## Verification
+
+| Check | Result |
+|---|---|
+| Fresh install on an empty DB | The test bootstrap drops every table in a scratch DB and runs the installer's migrate + seed path: no errors. `composer install --no-dev --dry-run`: lock file installable. `npx vite build`: succeeds (the `tsc` step still reports 33 pre-existing type errors, missing `@types/node` and livechat typings; baseline was 36). |
+| Phone-home / license grep | No outbound call to `support.vebto.com`, `api.envato.com`, register-purchase-code or get-download-url in app code. |
+| Obfuscation grep | No `eval`, `assert`, `create_function`, `shell_exec`, `exec`, `system`, `passthru`, `proc_open`, `popen`, `gzinflate`, `str_rot13` in the author's code. |
+| Audits | See above. |
+| `route:list` | No `envato`, `license`, `purchase`, `update` or demo routes. |
+| Authorization tests | `tests/Feature/TicketAuthorizationTest.php`: 8 tests, 28 assertions pass. They cover owner access, customer B viewing/replying/closing/listing A's ticket, agent endpoints, and attachment download through both the default and the conversation policy. A deliberate regression in `ConversationFileEntryPolicy` and in `ConversationPolicy` was detected by the tests. PHPUnit reports them "risky" because Laravel replaces PHP error handlers; this is cosmetic. |
+| `/install` after install | Routes are only registered when `INSTALLED` is not true (verified in code, `web.php`). Not exercised against a second install. |
+| Manual smoke test in a browser | **Not done.** Admin login through the UI, ticket creation with attachment, email notification, KB search and the new settings pages were not clicked through; only HTTP-level checks and the PHPUnit tests ran. |
+
+## Remaining known risks / not done
+
+- **Not deleted (left disabled, deep coupling in `common/`):** Billing (Stripe/PayPal, `BILLING_ENABLED=false`), Workspaces, custom domains, Facebook/Google/Twitter social login, Horizon, Pulse, Reverb, Clockwork, plus the client UI of the AI and LiveChat modules (their PHP backends are not in this package, so they are inactive).
+- **Migrations were not squashed.** Only migrations that depended on the removed Envato module were deleted.
+- **No CSP header.** The SPA uses inline bootstrap data, so a safe policy needs a nonce/hash design.
+- Forgot-password throttling was not verified or added (S-07 residual).
+- S-11 (enumerable file hashes), S-13 (Reverb `allowed_origins`) and S-14 (middleware calls inside actions) were left as low-risk and unchanged.
+- **New observation:** the admin settings endpoint returns the parsed `.env` (including secrets) to admins by design (`LoadSettingsManagerData::loadEnvSettings`, partly masked by `RedactSensitiveSettings`). Admin accounts must be treated as holding every secret in `.env`.
+- Attachment allow-list is a behavior change: other types (for example `.exe`, `.7z`, `.rar`) are now refused. Extend `config/filesystems.php` if you need them.
+- Mailgun inbound without `MAILGUN_SECRET` is now rejected.
+- `.env` was edited during this session (APP_NAME, cookies, queue, Telescope off, regenerated Reverb creds); `APP_URL` is now `http://help.tijaraq.test` (rewritten by the app when Herd served it).
+- The PHP 8.5 deprecation noise from vendor packages is hidden, not fixed.
