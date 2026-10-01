@@ -1,5 +1,4 @@
 import {DatatableAttribute} from '@app/attributes/datatable/datatable-attribute';
-import {helpdeskQueries} from '@app/dashboard/helpdesk-queries';
 import {helpCenterQueries} from '@app/help-center/help-center-queries';
 import {useQuery} from '@tanstack/react-query';
 import {Avatar} from '@ui/avatar/avatar';
@@ -12,11 +11,9 @@ import {FormSwitch} from '@ui/forms/toggle/switch';
 import {Trans} from '@ui/i18n/trans';
 import {AddIcon} from '@ui/icons/material/Add';
 import {CloseIcon} from '@ui/icons/material/Close';
-import {useSettings} from '@ui/settings/use-settings';
 import {useController, useFieldArray} from 'react-hook-form';
 
 export function CategoryAttributeOptionsEditor() {
-  const {envato} = useSettings();
   const {fields, append, remove} = useFieldArray<
     DatatableAttribute,
     any,
@@ -70,7 +67,6 @@ export function CategoryAttributeOptionsEditor() {
               className="mb-12"
             />
             <HelpCenterCategoriesField index={index} />
-            {envato?.enable && <EnvatoItemsField index={index} />}
             <FormSwitch
               name={`config.options.${index}.agentOnly`}
               invalid={invalid}
@@ -125,42 +121,6 @@ function HelpCenterCategoriesField({index}: HelpCenterCategoriesFieldProps) {
           capitalizeFirst
         >
           <Trans message={category.name} />
-        </Item>
-      )}
-    </FormChipField>
-  );
-}
-
-interface EnvatoItemsFieldProps {
-  index: number;
-}
-function EnvatoItemsField({index}: EnvatoItemsFieldProps) {
-  const query = useQuery(helpdeskQueries.envato.items.normalizedList());
-  return (
-    <FormChipField
-      className="mt-12"
-      name={`config.options.${index}.envatoItems`}
-      label={<Trans message="Envato items" />}
-      description={
-        index === 0 ? (
-          <Trans message="If active support functionality is enabled, this will prevent customer from starting a new conversation, if their support for all specified items is expired." />
-        ) : null
-      }
-      allowCustomValue={false}
-      suggestions={query.data?.items}
-      valueKey="id"
-      getItemForPresentation={value =>
-        query.data?.items?.find(item => item.id === value.id)
-      }
-    >
-      {item => (
-        <Item
-          key={item.id}
-          value={`${item.id}`}
-          startIcon={<Avatar src={item.image} label={item.name} size="xs" />}
-          capitalizeFirst
-        >
-          <Trans message={item.name} />
         </Item>
       )}
     </FormChipField>

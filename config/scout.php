@@ -6,7 +6,6 @@ use App\HelpCenter\Models\HcArticle;
 use App\Models\User;
 use App\Team\Models\Group;
 use Common\Tags\Tag;
-use Envato\Models\PurchaseCode;
 
 return [
     'meilisearch' => [
@@ -30,7 +29,6 @@ return [
     'mysql' => [
         'index-settings' => [
             ConversationItem::class => [],
-            PurchaseCode::class => [],
             Group::class => [],
         ],
     ],

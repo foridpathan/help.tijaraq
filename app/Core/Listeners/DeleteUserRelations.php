@@ -21,8 +21,6 @@ class DeleteUserRelations
         // details
         DB::table('user_details')->whereIn('user_id', $userIds)->delete();
 
-        // purchase codes
-        DB::table('purchase_codes')->whereIn('user_id', $userIds)->delete();
 
         // conversations
         $conversationIds = Conversation::query()

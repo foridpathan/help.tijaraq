@@ -6,7 +6,6 @@ use App\Attributes\Models\CustomAttribute;
 use App\Conversations\Models\Conversation;
 use App\Core\Modules;
 use Common\Tags\Tag;
-use Envato\Models\PurchaseCode;
 
 class FullConversationLoader
 {
@@ -28,18 +27,6 @@ class FullConversationLoader
             ->user()
             ->first()
             ->load(['bans', 'secondaryEmail', 'tags']);
-
-        if (settings('envato.enable')) {
-            $envatoPurchaseCodes = $user
-                ->purchaseCodes()
-                ->get()
-                ->map(function (PurchaseCode $code) {
-                    $code->support_expired =
-                        !$code->supported_until ||
-                        $code->supported_until->lt(now());
-                    return $code;
-                });
-        }
 
         $session = $user->latestUserSession;
 
@@ -81,7 +68,6 @@ class FullConversationLoader
                 ]
                 : null,
             'attributes' => $attributes,
-            'envatoPurchaseCodes' => $envatoPurchaseCodes ?? [],
             'tags' => $tags,
         ];
 

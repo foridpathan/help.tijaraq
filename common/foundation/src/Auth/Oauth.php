@@ -20,7 +20,7 @@ class Oauth
     const OAUTH_CALLBACK_HANDLER_KEY = 'oauthCallbackHandler';
     const RETRIEVE_PROFILE_ONLY_KEY = 'retrieveProfileOnly';
 
-    private array $validProviders = ['google', 'facebook', 'twitter', 'envato'];
+    private array $validProviders = ['google', 'facebook', 'twitter'];
 
     public function loginWith(string $provider)
     {

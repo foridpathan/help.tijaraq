@@ -36,10 +36,6 @@ class UserController extends BaseController
         $relations = array_filter(explode(',', request('with', '')));
         $relations = array_merge(['roles', 'social_profiles'], $relations);
 
-        if (settings('envato.enable')) {
-            $relations[] = 'purchaseCodes';
-        }
-
         if (Auth::id() === $user->id) {
             $relations[] = 'tokens';
             $user->makeVisible([

@@ -64,11 +64,6 @@ export const adminRoutes: RouteObject[] = [
               ),
           },
           {
-            path: 'envato',
-            lazy: () =>
-              import('@app/admin/settings/envato-settings/envato-settings'),
-          },
-          {
             path: 'hc',
             lazy: () => import('@app/admin/settings/hc/hc-settings'),
           },

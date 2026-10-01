@@ -1,7 +1,6 @@
 import {CompactAttribute} from '@app/attributes/compact-attribute';
 import {PageVisit} from '@app/dashboard/conversations/conversation-page/details-sidebar/page-visists-panel';
 import {PaginatedBackendResponse} from '@common/http/backend-response/pagination-response';
-import {EnvatoPurchaseCode} from '@envato/envato-purchase-code';
 import {ConversationSummary} from '../../../modules/ai/resources/client/conversation-summary-panel/conversation-summary';
 
 export const AGENT_PERMISSION = 'tickets.update';
@@ -50,7 +49,6 @@ export interface FullConversationResponse {
   summary: ConversationSummary | null;
   session: CustomerSession | null;
   attributes: CompactAttribute[];
-  envatoPurchaseCodes: EnvatoPurchaseCode[];
   tags: ConversationTag[];
 }
 

@@ -1,6 +1,5 @@
 import {CustomerSession} from '@app/dashboard/conversation';
 import {CompactAttribute} from '@app/attributes/compact-attribute';
-import {EnvatoPurchaseCode} from '@envato/envato-purchase-code';
 
 export interface CustomerProfile {
   id: number;
@@ -20,7 +19,6 @@ export interface CustomerProfile {
   tags: string[];
   notes: string | null;
   emails: string[];
-  envato_purchase_codes: EnvatoPurchaseCode[];
   attributes: CompactAttribute[];
   session: CustomerSession | null;
 }

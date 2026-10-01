@@ -15,7 +15,6 @@ import {useAgentInboxLayout} from '@app/dashboard/conversations/conversation-pag
 import {ConversationPreviewDialog} from '@app/dashboard/conversations/conversation-preview-dialog';
 import {InboxSectionHeader} from '@app/dashboard/dashboard-layout/inbox-section-header';
 import {useIsModuleInstalledAndSetup} from '@app/use-is-module-installed';
-import {ConversationPagePurchaseList} from '@envato/envato-purchase-list/conversation-page-purchase-list';
 import {
   Accordion,
   AccordionItem,
@@ -60,7 +59,6 @@ export function ConversationDetailsSidebar({data}: Props) {
 
 function ConversationDetails({data}: Props) {
   const isAiSetup = useIsModuleInstalledAndSetup('ai');
-  const isEnvatoSetup = useIsModuleInstalledAndSetup('envato');
   const isLivechatSetup = useIsModuleInstalledAndSetup('livechat');
   const [expandedItems, setExpendedItems] = useLocalStorage(
     'dash.chat.info',
@@ -81,11 +79,6 @@ function ConversationDetails({data}: Props) {
             variant="minimal"
             className="border-t"
           >
-            {isEnvatoSetup && data.envatoPurchaseCodes.length > 0 && (
-              <SidebarAccordionItem label={<Trans message="Envato" />}>
-                <ConversationPagePurchaseList data={data} />
-              </SidebarAccordionItem>
-            )}
             <SidebarAccordionItem
               label={<Trans message="Conversation attributes" />}
             >

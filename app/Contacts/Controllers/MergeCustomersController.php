@@ -102,8 +102,6 @@ class MergeCustomersController extends BaseController
             ->where('tokenable_type', User::MODEL_TYPE)
             ->update(['tokenable_id' => $userId]);
 
-        // purchase codes
-        $mergee->purchaseCodes()->update(['user_id' => $userId]);
 
         // replies
         DB::table('conversation_items')

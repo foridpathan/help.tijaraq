@@ -168,7 +168,6 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('helpdesk/normalized-models/agents', [HelpDeskAutocompleteController::class, 'agents']);
         Route::get('helpdesk/normalized-models/groups', [HelpDeskAutocompleteController::class, 'groups']);
         Route::get('helpdesk/normalized-models/roles', [HelpDeskAutocompleteController::class, 'roles']);
-        Route::get('helpdesk/normalized-models/envato-items', [HelpDeskAutocompleteController::class, 'envatoItems']);
         Route::get('helpdesk/normalized-models/customer', [HelpDeskAutocompleteController::class, 'customers']);
         Route::get('helpdesk/normalized-models/customer/{id}', [HelpDeskAutocompleteController::class, 'customer']);
 

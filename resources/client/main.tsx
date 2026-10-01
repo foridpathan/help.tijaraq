@@ -14,7 +14,6 @@ import {BaseBackendSettings} from '@common/core/settings/base-backend-settings';
 import {FetchCustomPageResponse} from '@common/custom-page/use-custom-page';
 import {ignoredSentryErrors} from '@common/errors/ignored-sentry-errors';
 import {Tag} from '@common/tags/tag';
-import {EnvatoPurchaseCode} from '@envato/envato-purchase-code';
 import {WidgetConfig} from '@livechat/widget/widget-config';
 import * as Sentry from '@sentry/react';
 import {getBootstrapData} from '@ui/bootstrap-data/bootstrap-data-store';
@@ -53,7 +52,7 @@ declare module '@common/admin/settings/admin-settings' {
 declare module '@ui/settings/settings' {
   interface Settings extends BaseBackendSettings {
     modules: Record<
-      'ai' | 'envato' | 'livechat',
+      'ai' | 'livechat',
       {
         installed: boolean;
         setup: boolean;
@@ -147,14 +146,6 @@ declare module '@ui/settings/settings' {
       hide_new_ticket_link?: boolean;
     };
 
-    //envato
-    envato?: {
-      enable: boolean;
-      require_purchase_code: boolean;
-      active_support: boolean;
-      filter_search: boolean;
-    };
-
     // common
     captcha?: BaseBackendSettings['captcha'] & {
       enable?: PartialRecord<'new_ticket' | 'register' | 'contact', boolean>;
@@ -167,7 +158,6 @@ declare module '@ui/settings/settings' {
 
 declare module '@ui/types/user' {
   interface User extends BaseBackendUser {
-    purchase_codes?: EnvatoPurchaseCode[];
     tags?: Tag[];
     secondary_emails?: {address: string}[];
     details?: {

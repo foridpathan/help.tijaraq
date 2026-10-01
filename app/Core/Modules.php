@@ -3,7 +3,6 @@
 namespace App\Core;
 
 use Ai\AiServiceProvider;
-use Envato\EnvatoServiceProvider;
 use Illuminate\Foundation\Application;
 use Livechat\LiveChatServiceProvider;
 
@@ -19,20 +18,8 @@ class Modules
         return config('modules.ai.installed') ?? false;
     }
 
-    public static function envatoInstalled(): bool
-    {
-        return config('modules.envato.installed') ?? false;
-    }
-
     public static function register(Application $app): void
     {
-        if (static::safeClassExists(EnvatoServiceProvider::class)) {
-            config()->set([
-                'modules.envato.installed' => true,
-            ]);
-            (new EnvatoServiceProvider($app))->register();
-        }
-
         if (static::safeClassExists(LiveChatServiceProvider::class)) {
             config()->set([
                 'modules.livechat.installed' => true,
@@ -51,17 +38,6 @@ class Modules
 
     public static function boot(Application $app): void
     {
-        if (static::safeClassExists(EnvatoServiceProvider::class)) {
-            (new EnvatoServiceProvider($app))->boot();
-            config()->set([
-                'modules.envato.setup' =>
-                    config('services.envato.client_id') &&
-                    config('services.envato.client_secret') &&
-                    config('services.envato.personal_token') &&
-                    settings('envato.enable'),
-            ]);
-        }
-
         if (static::safeClassExists(LiveChatServiceProvider::class)) {
             (new LiveChatServiceProvider($app))->boot();
         }

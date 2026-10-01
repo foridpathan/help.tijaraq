@@ -11,7 +11,6 @@ use Common\Auth\Actions\CreateUser;
 use Common\Core\BaseController;
 use Common\Database\Datasource\Datasource;
 use Common\Validation\CaptchaTokenValid;
-use Envato\Rules\EnvatoSupportIsNotExpired;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -126,7 +125,6 @@ class CustomerTicketsController extends BaseController
                 'captcha_token' => [new CaptchaTokenValid('new_ticket')],
                 'attributes' => 'array',
                 'attributes.*' => '',
-                'attributes.category' => [new EnvatoSupportIsNotExpired()],
             ],
             [
                 'email' => __(

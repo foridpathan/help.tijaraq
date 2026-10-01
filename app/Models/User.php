@@ -6,11 +6,9 @@ use App\CannedReplies\Models\CannedReply;
 use App\Contacts\Models\UserDetails;
 use App\Contacts\Traits\CanHaveSecondaryEmails;
 use App\Conversations\Models\Conversation;
-use App\Core\Modules;
 use App\Team\Traits\CanBeAgent;
 use Common\Auth\BaseUser;
 use Common\Tags\Tag;
-use Envato\Models\PurchaseCode;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -59,11 +57,6 @@ class User extends BaseUser
         return $this->hasOne(UserDetails::class);
     }
 
-    public function purchaseCodes(): HasMany
-    {
-        return $this->hasMany(PurchaseCode::class)->orderBy('id', 'desc');
-    }
-
     public function cannedReplies(): HasMany
     {
         return $this->hasMany(CannedReply::class);
@@ -77,30 +70,24 @@ class User extends BaseUser
     public function makeSearchableUsing(Collection $models)
     {
         return parent::makeSearchableUsing($models)
-            ->load(
-                Arr::whereNotNull([
-                    Modules::envatoInstalled() ? 'purchaseCodes' : null,
-                    'customAttributes' => fn($builder) => $builder->where(
-                        'type',
-                        'user',
-                    ),
-                ]),
-            )
+            ->load([
+                'customAttributes' => fn($builder) => $builder->where(
+                    'type',
+                    'user',
+                ),
+            ])
             ->loadCount('pageVisits');
     }
 
     protected function makeAllSearchableUsing($query)
     {
         return parent::makeAllSearchableUsing($query)
-            ->with(
-                Arr::whereNotNull([
-                    Modules::envatoInstalled() ? 'purchaseCodes' : null,
-                    'customAttributes' => fn($builder) => $builder->where(
-                        'type',
-                        'user',
-                    ),
-                ]),
-            )
+            ->with([
+                'customAttributes' => fn($builder) => $builder->where(
+                    'type',
+                    'user',
+                ),
+            ])
             ->withCount('pageVisits');
     }
 
@@ -116,11 +103,6 @@ class User extends BaseUser
     public function toSearchableArray(): array
     {
         $data = parent::toSearchableArray();
-        if (Modules::envatoInstalled()) {
-            $data['purchase_codes'] = $this->purchaseCodes->pluck(
-                'envato_username',
-            );
-        }
         $data['page_visits_count'] = $this->page_visits_count ?? 0;
         $data['is_returning'] = $this->page_visits_count > 1;
 

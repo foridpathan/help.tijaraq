@@ -5,7 +5,6 @@
       "@ui/*": ["common/foundation/resources/client/ui/library/*"],
       "@livechat/*": ["modules/livechat/resources/client/*"],
       "@ai/*": ["modules/ai/resources/client/*"],
-      "@envato/*": ["modules/envato/resources/client/*"],
       "@common/*": ["common/foundation/resources/client/*"],
       "@app/*": ["resources/client/*"]
     },
@@ -29,7 +28,6 @@
     "resources/client",
     "common/foundation/resources/client",
     "modules/helpdesk/resources/client",
-    "modules/envato/resources/client",
     "modules/livechat/resources/client",
     "modules/ai/resources/client"
   ],

@@ -4,7 +4,6 @@ namespace App\Contacts\Actions;
 
 use App\Attributes\Models\CustomAttribute;
 use App\Models\User;
-use Envato\Purchases\UserEnvatoPurchases;
 
 class LoadCustomerProfile
 {
@@ -49,9 +48,6 @@ class LoadCustomerProfile
             'tags' => $user->tags->pluck('name')->toArray(),
             'notes' => $user->details->notes ?? null,
             'emails' => $user->secondaryEmails->pluck('address')->toArray(),
-            'envato_purchase_codes' => settings('envato.enable')
-                ? (new UserEnvatoPurchases($user))->get()
-                : null,
             'attributes' => $attributes,
         ];
     }

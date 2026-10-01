@@ -337,8 +337,6 @@ return [
     ['name' => 'realtime.enable', 'value' => false],
     ['name' => 'realtime.pusher_key', 'value' => null],
 
-    //envato
-    ['name' => 'envato.filter_search', 'value' => false],
 
     //help center
     ['name' => 'articles.default_order', 'value' => 'position|desc'],

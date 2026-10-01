@@ -75,10 +75,6 @@ export const helpdeskReportRoutes: RouteObject[] = [
         lazy: () =>
           import('@app/dashboard/reports/google-analytics-report-page'),
       },
-      {
-        path: 'envato',
-        lazy: () => import('@app/dashboard/reports/envato-report-page'),
-      },
     ],
   },
 ];

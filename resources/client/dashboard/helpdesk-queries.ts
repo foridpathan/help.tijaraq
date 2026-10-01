@@ -40,7 +40,6 @@ import {
   PaginatedBackendResponse,
 } from '@common/http/backend-response/pagination-response';
 import {apiClient, queryClient} from '@common/http/query-client';
-import {EnvatoPurchaseCode} from '@envato/envato-purchase-code';
 import {Campaign} from '@livechat/dashboard/campaigns/campaign';
 import {
   infiniteQueryOptions,
@@ -529,27 +528,4 @@ export const helpdeskQueries = {
     },
   },
 
-  envato: {
-    invalidateKey: ['envato'],
-    items: {
-      normalizedList: () =>
-        queryOptions({
-          staleTime: Infinity,
-          queryKey: ['envato', 'items', 'normalized-models'],
-          queryFn: () =>
-            get<{items: NormalizedModel[]}>(
-              'helpdesk/normalized-models/envato-items',
-            ),
-        }),
-    },
-    userPurchases: (userId: number | string) => {
-      return queryOptions({
-        queryKey: ['envato', 'user-purchases', `${userId}`],
-        queryFn: () =>
-          get<{purchases: EnvatoPurchaseCode[]}>(
-            `users/${userId}/envato/purchases`,
-          ),
-      });
-    },
-  },
 };

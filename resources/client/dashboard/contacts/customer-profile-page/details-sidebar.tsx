@@ -16,7 +16,6 @@ import {apiClient, queryClient} from '@common/http/query-client';
 import {ManageTagsDialog} from '@common/tags/manage-tags-dialog';
 import {DashboardLayoutContext} from '@common/ui/dashboard-layout/dashboard-layout-context';
 import {useRequiredParams} from '@common/ui/navigation/use-required-params';
-import {EnvatoPurchaseList} from '@envato/envato-purchase-list/envato-purchase-list';
 import {useMutation, useQuery, useSuspenseQuery} from '@tanstack/react-query';
 import {
   Accordion,
@@ -68,7 +67,6 @@ interface DetailsFormPayload {
 
 export function DetailsSidebar() {
   const {userId} = useRequiredParams(['userId']);
-  const isEnvatoSetup = useIsModuleInstalledAndSetup('envato');
   const isLivechatSetup = useIsModuleInstalledAndSetup('livechat');
   const userQuery = useSuspenseQuery(helpdeskQueries.customers.get(userId));
   const user = userQuery.data.user;
@@ -141,13 +139,6 @@ export function DetailsSidebar() {
             <SidebarAccordionItem label={<Trans message="Tags" />}>
               <TagsPanel />
             </SidebarAccordionItem>
-            {isEnvatoSetup && (
-              <SidebarAccordionItem
-                label={<Trans message="Envato purchase codes" />}
-              >
-                <EnvatoPurchaseCodesPanel user={user} />
-              </SidebarAccordionItem>
-            )}
             <SidebarAccordionItem label={<Trans message="Notes" />}>
               <NotesPanel />
             </SidebarAccordionItem>
@@ -414,23 +405,6 @@ function NotesPanel() {
       size="xs"
       inputBorder="border border-divider-lighter"
     />
-  );
-}
-
-function EnvatoPurchaseCodesPanel({user}: PrimaryDetailsPanelProps) {
-  return (
-    <Fragment>
-      {!user.envato_purchase_codes?.length ? (
-        <div className="text-sm text-muted">
-          <Trans message="No envato purchases yet" />
-        </div>
-      ) : (
-        <EnvatoPurchaseList
-          userId={user.id}
-          initialData={user.envato_purchase_codes}
-        />
-      )}
-    </Fragment>
   );
 }
 

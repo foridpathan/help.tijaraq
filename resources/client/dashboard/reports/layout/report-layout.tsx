@@ -74,9 +74,6 @@ export function ReportLayout({
         <Item value="tags">
           <Trans message="Tags" />
         </Item>
-        <Item value="envato">
-          <Trans message="Envato" />
-        </Item>
         <Item value="analytics">
           <Trans message="Google analytics" />
         </Item>

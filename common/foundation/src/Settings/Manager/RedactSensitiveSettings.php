@@ -36,8 +36,6 @@ class RedactSensitiveSettings
         'openai_api_key',
         'demo_admin_password',
         'db_password',
-        'envato_personal_token',
-        'envato_secret',
     ];
 
     protected $clientKeys = [

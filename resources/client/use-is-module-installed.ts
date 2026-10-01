@@ -1,6 +1,6 @@
 import {useSettings} from '@ui/settings/use-settings';
 
-type ModuleName = 'ai' | 'envato' | 'livechat';
+type ModuleName = 'ai' | 'livechat';
 
 export function useIsModuleInstalled(name: ModuleName): boolean {
   const {modules} = useSettings();

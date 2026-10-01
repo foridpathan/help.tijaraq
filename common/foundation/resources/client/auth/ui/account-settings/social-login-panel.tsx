@@ -4,7 +4,6 @@ import {queryClient} from '@common/http/query-client';
 import {Button} from '@ui/buttons/button';
 import {message} from '@ui/i18n/message';
 import {Trans} from '@ui/i18n/trans';
-import {EnvatoIcon} from '@ui/icons/social/envato';
 import {FacebookIcon} from '@ui/icons/social/facebook';
 import {GoogleIcon} from '@ui/icons/social/google';
 import {TwitterIcon} from '@ui/icons/social/twitter';
@@ -35,16 +34,6 @@ export function SocialLoginPanel({user}: Props) {
       id={AccountSettingsId.SocialLogin}
       title={<Trans message="Manage social login" />}
     >
-      <SocialLoginPanelRow
-        icon={
-          <EnvatoIcon
-            viewBox="0 0 50 50"
-            className="border-envato bg-envato text-white"
-          />
-        }
-        service="envato"
-        user={user}
-      />
       <SocialLoginPanelRow
         icon={<GoogleIcon viewBox="0 0 48 48" />}
         service="google"

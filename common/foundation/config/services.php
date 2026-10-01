@@ -118,12 +118,6 @@ return [
         'secret' => env('MAILGUN_SECRET'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
-    'envato' => [
-        'client_id' => env('ENVATO_ID'),
-        'client_secret' => env('ENVATO_SECRET'),
-        'personal_token' => env('ENVATO_PERSONAL_TOKEN'),
-        'redirect' => env('APP_URL') . '/secure/auth/social/envato/callback',
-    ],
     'slack' => [
         'webhook_url' => env('SLACK_WEBHOOK_URL'),
         'notifications' => [

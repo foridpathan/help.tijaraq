@@ -24,9 +24,6 @@ export function Component() {
         social: {
           requireAccount: data.client.social?.requireAccount ?? false,
           compact_buttons: data.client.social?.compact_buttons ?? false,
-          envato: {
-            enable: data.client.social?.envato?.enable ?? false,
-          },
           google: {
             enable: data.client.social?.google?.enable ?? false,
           },
@@ -43,9 +40,6 @@ export function Component() {
         },
       },
       server: {
-        envato_id: data.server?.envato_id ?? '',
-        envato_secret: data.server?.envato_secret ?? '',
-        envato_personal_token: data.server?.envato_personal_token ?? '',
         google_id: data.server?.google_id ?? '',
         google_secret: data.server?.google_secret ?? '',
         facebook_id: data.server?.facebook_id ?? '',
@@ -68,7 +62,6 @@ export function Component() {
       <SocialLoginSettingsPanel />
       <SingleDeviceLoginPanel />
       <DomainBlacklistPanel />
-      <EnvatoSection />
       <GoogleSection />
       <FacebookSection />
       <TwitterSection />
@@ -164,73 +157,6 @@ function DomainBlacklistPanel() {
         inputElementType="textarea"
         rows={1}
       />
-    </SettingsPanel>
-  );
-}
-
-function EnvatoSection() {
-  const {watch} = useFormContext<AdminSettings>();
-  const settings = useSettings();
-  const envatoLoginEnabled = watch('client.social.envato.enable');
-
-  if (!(settings as any).envato?.enable) return null;
-
-  return (
-    <SettingsPanel
-      className="mb-24"
-      title={<Trans message="Envato Login" />}
-      description={
-        <Trans message="Configure Envato authentication settings." />
-      }
-    >
-      <SettingsErrorGroup
-        separatorBottom={false}
-        separatorTop={false}
-        name="envato_group"
-      >
-        {isInvalid => (
-          <>
-            <FormSwitch
-              size="sm"
-              invalid={isInvalid}
-              name="client.social.envato.enable"
-              description={
-                <Trans message="Enable logging into the site via envato." />
-              }
-            >
-              <Trans message="Envato login" />
-            </FormSwitch>
-            {!!envatoLoginEnabled && (
-              <>
-                <FormTextField
-                  size="sm"
-                  invalid={isInvalid}
-                  className="mt-20"
-                  name="server.envato_id"
-                  label={<Trans message="Envato ID" />}
-                  required
-                />
-                <FormTextField
-                  size="sm"
-                  invalid={isInvalid}
-                  className="mt-20"
-                  name="server.envato_secret"
-                  label={<Trans message="Envato secret" />}
-                  required
-                />
-                <FormTextField
-                  size="sm"
-                  invalid={isInvalid}
-                  className="mt-20"
-                  name="server.envato_personal_token"
-                  label={<Trans message="Envato personal token" />}
-                  required
-                />
-              </>
-            )}
-          </>
-        )}
-      </SettingsErrorGroup>
     </SettingsPanel>
   );
 }

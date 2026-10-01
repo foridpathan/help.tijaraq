@@ -2,7 +2,6 @@
 
 use App\Attributes\Models\CustomAttribute;
 use App\Conversations\Models\Conversation;
-use Envato\Purchases\ImportEnvatoItems;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -24,16 +23,6 @@ return new class extends Migration {
                 'internal' => true,
             ],
         );
-
-        // import envato items
-        $envatoItems = [];
-        try {
-            if (config('services.envato.personal_token')) {
-                $envatoItems = (new ImportEnvatoItems())->execute();
-            }
-        } catch (\Exception $e) {
-            //
-        }
 
         // add option to attribute for each old tag category
         $oldTagCategories = DB::table('tags')->where('type', 'category')->get();
@@ -60,13 +49,6 @@ return new class extends Migration {
                 'label' =>
                     $oldTagCategory->display_name ?? $oldTagCategory->name,
                 'hcCategories' => $hcCategories->get($oldTagCategory->id) ?? [],
-                'envatoItems' => collect($envatoItems)
-                    ->filter(
-                        fn($item) => slugify($oldTagCategory->name) ===
-                            slugify($item->name),
-                    )
-                    ->pluck('id')
-                    ->values(),
             ];
             $categoryAttribute->config = $oldConfig;
         }

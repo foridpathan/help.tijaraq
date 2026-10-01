@@ -7,7 +7,7 @@ import {toast} from '@ui/toast/toast';
 import {useCallback, useState} from 'react';
 import {useDisconnectSocial} from './disconnect-social';
 
-export type SocialService = 'google' | 'twitter' | 'facebook' | 'envato';
+export type SocialService = 'google' | 'twitter' | 'facebook';
 
 interface SocialMessageEvent {
   status?: 'SUCCESS' | 'ALREADY_LOGGED_IN' | 'REQUEST_PASSWORD' | 'ERROR';

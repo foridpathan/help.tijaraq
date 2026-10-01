@@ -136,16 +136,6 @@ class SocialAuthController extends BaseController
             return $this->oauth->logUserIn($existingProfile->user, $provider);
         }
 
-        // if user is trying to log in with envato and does not have any valid purchases, bail
-        if (
-            $provider === 'envato' &&
-            empty($externalProfile->user['purchases'])
-        ) {
-            return $this->oauth->getErrorResponse(
-                'You do not have any supported purchases.',
-            );
-        }
-
         // if registration is disabled, only allow logging in if user has
         // connected social account from their account settings page previously
         if (!Auth::check() && settings('social.requireAccount')) {

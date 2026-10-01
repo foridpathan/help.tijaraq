@@ -28,7 +28,6 @@ export interface ConversationCategoryAttribute extends CompactAttribute {
       label: string;
       value: string;
       hcCategories: number[];
-      envatoItems: number[];
       agentOnly?: boolean;
     }[];
   };

@@ -39,7 +39,6 @@ export const AppSettingsNavConfig: SettingsNavItem[] = [
   {label: message('Livechat'), to: 'livechat', position: 3},
   {label: message('AI & Agents'), to: 'ai', position: 4},
   {label: message('Help center'), to: 'hc', position: 5},
-  {label: message('Envato'), to: 'envato', position: 6},
   {label: message('Search'), to: 'search', position: 7},
 ];
 
@@ -56,7 +55,6 @@ export const AdminDocsUrls = {
     themes: `${base}/42/46/270`,
     helpCenter: `${base}/42/73/243`,
     menus: `${base}/42/46/272`,
-    envato: `${base}/42/78/273`,
     localization: `${base}/42/46/247`,
     authentication: `${base}/42/46/274`,
     uploading: `${base}/42/74/291`,

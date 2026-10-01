@@ -9,7 +9,6 @@ export interface AdminServerSettings {
   app_locale: string;
   newAppUrl?: string;
   enable_contact_page?: boolean;
-  envato_purchase_code?: string;
 
   // subscriptions
   paypal_client_id?: string;
@@ -20,9 +19,6 @@ export interface AdminServerSettings {
   stripe_webhook_secret?: string;
 
   // social login
-  envato_id?: string;
-  envato_secret?: string;
-  envato_personal_token?: string;
   google_id?: string;
   google_secret?: string;
   twitter_id?: string;

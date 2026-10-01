@@ -123,9 +123,6 @@ export interface BaseBackendSettings {
     policies?: MenuItemConfig[];
   };
   social?: {
-    envato?: {
-      enable: boolean;
-    };
     google?: {
       enable: boolean;
     };

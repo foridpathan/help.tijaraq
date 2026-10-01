@@ -10,7 +10,6 @@ use App\Team\Models\Group;
 use Common\Auth\Roles\Role;
 use Common\Core\BaseController;
 use Common\Tags\Tag;
-use Envato\Models\EnvatoItem;
 
 class HelpDeskAutocompleteController extends BaseController
 {
@@ -156,18 +155,5 @@ class HelpDeskAutocompleteController extends BaseController
             );
 
         return $this->success(['tags' => $tags]);
-    }
-
-    public function envatoItems()
-    {
-        $this->authorize('index', Conversation::class);
-
-        $items = EnvatoItem::limit(40)
-            ->get()
-            ->map(fn(EnvatoItem $item) => $item->toNormalizedArray());
-
-        return $this->success([
-            'items' => $items,
-        ]);
     }
 }

@@ -13,7 +13,6 @@ import {message} from '@ui/i18n/message';
 import {MessageDescriptor} from '@ui/i18n/message-descriptor';
 import {Trans} from '@ui/i18n/trans';
 import {useTrans} from '@ui/i18n/use-trans';
-import {EnvatoIcon} from '@ui/icons/social/envato';
 import {FacebookIcon} from '@ui/icons/social/facebook';
 import {GoogleIcon} from '@ui/icons/social/google';
 import {TwitterIcon} from '@ui/icons/social/twitter';
@@ -35,7 +34,6 @@ import {
 const googleLabel = message('Continue with google');
 const facebookLabel = message('Continue with facebook');
 const twitterLabel = message('Continue with twitter');
-const envatoLabel = message('Continue with envato');
 
 interface SocialAuthSectionProps {
   dividerMessage: ReactNode;
@@ -94,13 +92,6 @@ export function SocialAuthSection({
             label={twitterLabel}
             icon={<TwitterIcon className="text-twitter" />}
             onClick={() => handleSocialLogin('twitter')}
-          />
-        ) : null}
-        {social?.envato?.enable && !isUsingInvite ? (
-          <SocialLoginButton
-            label={envatoLabel}
-            icon={<EnvatoIcon viewBox="0 0 50 50" className="text-envato" />}
-            onClick={() => handleSocialLogin('envato')}
           />
         ) : null}
       </div>
