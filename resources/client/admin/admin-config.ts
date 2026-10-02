@@ -39,6 +39,7 @@ export const AppSettingsNavConfig: SettingsNavItem[] = [
   {label: message('Livechat'), to: 'livechat', position: 3},
   {label: message('AI & Agents'), to: 'ai', position: 4},
   {label: message('Help center'), to: 'hc', position: 5},
+  {label: message('Integration'), to: 'tijaraq', position: 6},
   {label: message('Search'), to: 'search', position: 7},
 ];
 

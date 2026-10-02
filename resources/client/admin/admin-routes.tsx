@@ -82,6 +82,11 @@ export const adminRoutes: RouteObject[] = [
             path: 'ai',
             lazy: () => import('@ai/admin/settings/ai-settings-page'),
           },
+          {
+            path: 'tijaraq',
+            lazy: () =>
+              import('@app/admin/settings/tijaraq-integration-settings'),
+          },
         ],
         {
           captcha: {

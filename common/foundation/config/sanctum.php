@@ -2,7 +2,7 @@
 
 use Common\Core\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Session\Middleware\AuthenticateSession;
+use App\Core\Middleware\AuthenticateSession;
 
 return [
     'middleware' => [

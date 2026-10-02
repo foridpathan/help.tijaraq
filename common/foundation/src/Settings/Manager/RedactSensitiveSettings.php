@@ -36,6 +36,13 @@ class RedactSensitiveSettings
         'openai_api_key',
         'demo_admin_password',
         'db_password',
+        // TijaraQ integration secrets (env only, listed so the admin
+        // settings endpoint can never expose them)
+        'tijaraq_api_keys',
+        'tijaraq_webhook_secret',
+        'tijaraq_webhook_url',
+        'tijaraq_sso_public_keys_path',
+        'tijaraq_allowed_ips',
     ];
 
     protected $clientKeys = [

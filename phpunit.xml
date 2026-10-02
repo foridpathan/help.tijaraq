@@ -31,5 +31,7 @@
         <env name="SCOUT_DRIVER" value="null" force="true"/>
         <env name="TELESCOPE_ENABLED" value="false" force="true"/>
         <env name="PULSE_ENABLED" value="false" force="true"/>
+        <!-- TijaraQ integration is switched on for the integration tests; keys/secrets are set per test -->
+        <env name="TIJARAQ_INTEGRATION_ENABLED" value="true" force="true"/>
     </php>
 </phpunit>
