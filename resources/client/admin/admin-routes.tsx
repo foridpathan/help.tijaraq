@@ -74,10 +74,10 @@ export const adminRoutes: RouteObject[] = [
                 '@common/admin/settings/pages/email-settings/incoming-email/incoming-email-settings'
               ),
           },
-          {
-            path: 'livechat',
-            lazy: () => import('@livechat/admin/settings/livechat-settings'),
-          },
+          // {
+          //   path: 'livechat',
+          //   lazy: () => import('@livechat/admin/settings/livechat-settings'),
+          // },
           {
             path: 'ai',
             lazy: () => import('@ai/admin/settings/ai-settings-page'),

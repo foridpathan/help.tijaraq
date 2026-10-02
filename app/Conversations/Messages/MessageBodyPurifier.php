@@ -5,7 +5,8 @@ use HTMLPurifier_Config;
 
 class MessageBodyPurifier
 {
-    public const REPLY_ABOVE_ID = 'bedeskReplyAboveThisLine';
+    public const REPLY_ABOVE_ID = 'tijaraqReplyAboveThisLine';
+    public const LEGACY_REPLY_ABOVE_ID = 'bedeskReplyAboveThisLine';
 
     /**
      * Body from message submitted via widget or website

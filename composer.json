@@ -1,11 +1,11 @@
 {
-  "name": "laravel/laravel",
-  "description": "The Laravel Framework.",
+  "name": "tijaraq/helpdesk",
+  "description": "TijaraQ Help merchant support application.",
   "keywords": [
-    "framework",
-    "laravel"
+    "tijaraq",
+    "helpdesk",
+    "merchant-support"
   ],
-  "license": "MIT",
   "type": "project",
   "require": {
     "php": ">=8.2",

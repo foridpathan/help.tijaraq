@@ -1,4 +1,5 @@
 import { AdminDocsUrls } from '@app/admin/admin-config';
+import { ModuleUnavailableCard } from '@app/admin/settings/module-unavailable-card';
 import { AdminSettings } from '@common/admin/settings/admin-settings';
 import { DocsLink } from '@common/admin/settings/layout/settings-links';
 import { useSettingsPageStore } from '@common/admin/settings/layout/settings-page-store';
@@ -9,7 +10,6 @@ import {
 import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
 import { ChatTimeoutSettings } from '@livechat/admin/settings/chat-timeouts-settings';
 import { ChatWidgetSettings } from '@livechat/admin/settings/chat-widget-settings';
-import { InstallModuleCard } from '@livechat/admin/settings/install-module-card';
 import { InstallWidgetSettings } from '@livechat/admin/settings/install-widget-settings';
 import {
   chatSettingsRoutes,
@@ -231,12 +231,10 @@ function CopySecretKeyButton() {
 
 export function NotInstalledCard() {
   return (
-    <InstallModuleCard
-      title="Connect in Real-Time with Live Chat"
-      description="Don't wait for an email. Add Live Chat to talk with visitors in real-time, solve their problems instantly, and capture more leads. Use page tracking and automated campaigns to proactively engage and boost conversions."
+    <ModuleUnavailableCard
+      title={<Trans message="Livechat" />}
+      description={<Trans message="Livechat is unavailable in this deployment." />}
       icon={<ChatIcon size="lg" />}
-      getModuleLabel={<Trans message="Get LiveChat addon" />}
-      moduleName="livechat"
     />
   );
 }

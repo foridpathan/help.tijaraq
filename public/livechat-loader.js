@@ -160,7 +160,7 @@
 
     const iframeUrl = new URL(domain);
 
-    // include original pathname, in case bedesk is hosted on nested path e.g. site.com/bedesk
+    // Include the original pathname when the app is hosted under a nested path.
     let pathname = iframeUrl.pathname
       .replace('/livechat-loader.js', '')
       .replace(/^\/|\/$/g, '');

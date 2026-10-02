@@ -44,15 +44,16 @@
             content="width=device-width, initial-scale=1, maximum-scale=5"
             data-keep="true"
         />
+        @php($favicon = settings('branding.favicon', 'images/tijaraq-mark-dark.svg'))
         <link
             rel="icon"
-            type="image/x-icon"
-            href="{{ url('favicon/icon-144x144.png') }}"
+            type="{{ str_contains($favicon, '.svg') ? 'image/svg+xml' : 'image/png' }}"
+            href="{{ url($favicon) }}"
             data-keep="true"
         />
         <link
             rel="apple-touch-icon"
-            href="{{ url('favicon/icon-192x192.png') }}"
+            href="{{ url($favicon) }}"
             data-keep="true"
         />
         <link

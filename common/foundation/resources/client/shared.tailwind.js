@@ -131,7 +131,6 @@ module.exports = {
       google: '#d34836',
       facebook: '#3b5998',
       twitter: '#000000',
-      envato: '#6ca12b',
       tumblr: '#2b5a9f',
       bg: 'rgb(var(--be-bg) / <alpha-value>)',
       'bg-alt': 'rgb(var(--be-bg-alt) / <alpha-value>)',

@@ -21,7 +21,6 @@ tags:
   - name: Search
   - name: Reports
   - name: Triggers
-  - name: Envato
   - name: Help center
   - name: Help center articles
   - name: Help center categories
@@ -4962,42 +4961,6 @@ paths:
                   type: string
                   example: 'iphone 12'
 
-  /envato/validate-purchase-code:
-    post:
-      tags:
-        - Envato
-      summary: Validate specified envato purchase code
-      operationId: validatePurchaseCode
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                purchase_code:
-                  type: string
-                  required: true
-      responses:
-        '200':
-          description: On success, the response body contains purchse code object in JSON format
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  code:
-                    $ref: '#/components/schemas/EnvatoPurchaseCode'
-        '401':
-          $ref: '#/components/schemas/401-Response'
-        '403':
-          $ref: '#/components/schemas/403-Response'
-        '422':
-          $ref: '#/components/schemas/422-Response'
-
   /uploads:
     post:
       tags:
@@ -6000,10 +5963,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompactAttribute'
-        envatoPurchaseCodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvatoPurchaseCode'
         tags:
           type: array
           items:
@@ -6244,27 +6203,6 @@ components:
             - type: array
               items:
                 type: string
-
-    EnvatoPurchaseCode:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        code:
-          type: string
-          example: 'abc123-def456-ghi789'
-        item_id:
-          type: integer
-          example: 123
-        item_name:
-          type: string
-          example: 'BeDesk - Customer Support Software'
-        supported_until:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2024-12-31T23:59:59Z'
 
     ConversationStatus:
       type: object
@@ -6867,11 +6805,6 @@ components:
             format: email
           description: Additional email addresses associated with customer
           example: ['john@example.com', 'john.doe@company.com']
-        envato_purchase_codes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvatoPurchaseCode'
-          description: Envato purchase codes associated with customer
         attributes:
           type: array
           items:

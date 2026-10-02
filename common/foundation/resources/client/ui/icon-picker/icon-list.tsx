@@ -6,7 +6,6 @@ import * as Icons from '@ui/icons/material/all-icons';
 import {AmazonIcon} from '@ui/icons/social/amazon';
 import {AppleIcon} from '@ui/icons/social/apple';
 import {BandcampIcon} from '@ui/icons/social/bandcamp';
-import {EnvatoIcon} from '@ui/icons/social/envato';
 import {FacebookIcon} from '@ui/icons/social/facebook';
 import {InstagramIcon} from '@ui/icons/social/instagram';
 import {LinkedinIcon} from '@ui/icons/social/linkedin';
@@ -30,7 +29,6 @@ const socialIcons: [string, ComponentType<SvgIconProps>][] = [
   ['amazon', AmazonIcon],
   ['apple', AppleIcon],
   ['bandcamp', BandcampIcon],
-  ['envato', EnvatoIcon],
   ['facebook', FacebookIcon],
   ['instagram', InstagramIcon],
   ['linkedin', LinkedinIcon],

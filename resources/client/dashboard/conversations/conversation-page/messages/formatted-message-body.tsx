@@ -11,7 +11,7 @@ interface Props {
   className?: string;
   children: string;
   isStreaming?: boolean;
-  // If reply is by agent using bedesk reply composer, spaces will be via line breaks, no need for extra spacing. Chatbot will use html <p> tags to add spacing.
+  // Agent replies use line breaks for spacing. Bot replies use HTML paragraphs.
   addParagraphSpacing?: boolean;
 }
 export function FormattedMessageBody({

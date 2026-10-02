@@ -72,7 +72,6 @@ export const AdminDocsUrls = {
     seo: `${base}/42/46/280`,
     s3: `${base}/42/74/216`,
     backblaze: `${base}/42/74/217`,
-    purchaseCode: `${base}/42/46/293`,
   },
   pages: {
     triggers: `${base}/42/68/153`,

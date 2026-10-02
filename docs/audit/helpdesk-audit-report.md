@@ -1,5 +1,7 @@
 # Helpdesk audit report: help.tijaraq.com
 
+> Historical snapshot from 2026-10-01. The current application has since been rebranded as TijaraQ Help and its former purchase-code UI has been removed. Keep this report as a record of the original source and earlier findings.
+
 Stage 1 (read-only audit). Nothing was deleted or refactored. Date: 2026-10-01. Branch: `chore/helpdesk-audit-cleanup`.
 
 Labels: `UNVERIFIED` = reasoned from code but not exercised at runtime. Line numbers refer to the files as committed in `cb2b857`.

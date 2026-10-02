@@ -25,11 +25,11 @@ return [
     // logos
     [
         'name' => 'branding.logo_dark',
-        'value' => 'images/logo-dark.svg',
+        'value' => 'images/tijaraq-logo-dark.svg',
     ],
     [
         'name' => 'branding.logo_light',
-        'value' => 'images/logo-light.svg',
+        'value' => 'images/tijaraq-logo-light.svg',
     ],
 
     // translations

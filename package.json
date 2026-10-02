@@ -1,5 +1,5 @@
 {
-  "name": "mtdb-react",
+  "name": "tijaraq-help",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -7,8 +7,7 @@
     "build": "tsc --skipLibCheck && vite build",
     "preview": "vite preview",
     "iconIndex": "node ./scripts/create-icon-index.js",
-    "extract": "node ./resources/scripts/extract-translations.js",
-    "codecanyon": "node ./resources/scripts/build-cc-download.js"
+    "extract": "node ./resources/scripts/extract-translations.js"
   },
   "dependencies": {
     "@dagrejs/dagre": "^1.1.8",

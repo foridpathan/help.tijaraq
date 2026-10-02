@@ -2,24 +2,25 @@
 
 return [
     //branding
-    ['name' => 'branding.site_name', 'value' => 'BeDesk'],
+    ['name' => 'branding.site_name', 'value' => 'TijaraQ Help'],
+    ['name' => 'branding.favicon', 'value' => 'images/tijaraq-mark-dark.svg'],
 
     // logos
     [
         'name' => 'branding.logo_dark',
-        'value' => 'images/logo-dark.png',
+        'value' => 'images/tijaraq-logo-dark.svg',
     ],
     [
         'name' => 'branding.logo_dark_mobile',
-        'value' => 'images/logo-dark-mobile.png',
+        'value' => 'images/tijaraq-mark-dark.svg',
     ],
     [
         'name' => 'branding.logo_light',
-        'value' => 'images/logo-light.png',
+        'value' => 'images/tijaraq-logo-light.svg',
     ],
     [
         'name' => 'branding.logo_light_mobile',
-        'value' => 'images/logo-light-mobile.png',
+        'value' => 'images/tijaraq-mark-light.svg',
     ],
     [
         'name' => 'homepage.type',

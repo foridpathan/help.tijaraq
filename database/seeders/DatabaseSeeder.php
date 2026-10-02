@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         (new InsertDefaultSettings())->execute();
         (new CreateDefaultMenus())->execute();
         (new CreateDefaultCustomPages())->execute();
+        $this->call(TijaraqBrandingSeeder::class);
 
         $this->call(AdminAccountSeeder::class);
         $this->call(CssThemesTableSeeder::class);

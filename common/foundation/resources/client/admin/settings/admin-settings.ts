@@ -160,18 +160,12 @@ export interface AdminSettings {
   server: AdminServerSettings;
   files: Record<string, File>;
   themes: CssTheme[];
-  license?: {
-    purchase_code?: string;
-    item_id?: number;
-  };
   modules?: Record<
     string,
     {
       label: string;
       built_in?: boolean;
       installed?: boolean;
-      envato_item_id?: number;
-      envato_purchase_code?: string;
     }
   >;
   custom_code: {

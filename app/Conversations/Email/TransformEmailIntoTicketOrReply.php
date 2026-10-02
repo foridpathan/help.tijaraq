@@ -76,7 +76,7 @@ class TransformEmailIntoTicketOrReply
         if ($this->parsedEmail->hasHeader('In-Reply-To')) {
             $inReplyToMessageId = $this->parsedEmail->getHeader('In-Reply-To');
             $uuid = $referenceHash->extractFromMessageId($inReplyToMessageId);
-            // find reply either by email message ID or by BeDesk specific UUID for reply
+            // Find the reply by email message ID or by its ticket UUID.
             $reply = ConversationItem::when(
                 $uuid,
                 fn($builder) => $builder->where('uuid', $uuid),

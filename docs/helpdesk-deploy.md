@@ -1,6 +1,6 @@
 # Deploying help.tijaraq.com
 
-Single-tenant BeDesk install for TijaraQ merchant support. This app is separate from `app.tijaraq.com`.
+Single-tenant TijaraQ Help application for merchant support. This app is separate from `app.tijaraq.com`.
 
 ## 1. Requirements
 

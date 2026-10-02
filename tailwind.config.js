@@ -11,7 +11,6 @@ module.exports = {
     './common/foundation/resources/client/**/*.ts*',
     './common/helpdesk/resources/client/**/*.ts*',
     './modules/ai/resources/client/**/*.ts*',
-    './modules/envato/resources/client/**/*.ts*',
     './modules/livechat/resources/client/**/*.ts*',
     './common/foundation/resources/views/framework.blade.php',
   ],

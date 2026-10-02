@@ -1,10 +1,10 @@
 import { AdminDocsUrls } from '@app/admin/admin-config';
+import { ModuleUnavailableCard } from '@app/admin/settings/module-unavailable-card';
 import { AdminSettings } from '@common/admin/settings/admin-settings';
 import { AdminSettingsLayout } from '@common/admin/settings/layout/settings-layout';
 import { DocsLink } from '@common/admin/settings/layout/settings-links';
 import { SettingsPanel } from '@common/admin/settings/layout/settings-panel';
 import { useAdminSettings } from '@common/admin/settings/requests/use-admin-settings';
-import { InstallModuleCard } from '@livechat/admin/settings/install-module-card';
 import { LinkStyle } from '@ui/buttons/external-link';
 import { FormComboBox } from '@ui/forms/combobox/form-combobox';
 import { FormTextField } from '@ui/forms/input-field/text-field/text-field';
@@ -319,12 +319,10 @@ function ModelCombobox({name, children, docsLink}: ModelComboboxProps) {
 
 export function NotInstalledCard() {
   return (
-    <InstallModuleCard
-      title="Supercharge Your Support with AI"
-      description="Instantly resolve common questions with a smart AI agent, get instant conversation summaries, and perfect every reply with one-click rewriting. Reduce ticket volume and empower your team to focus on what matters most."
+    <ModuleUnavailableCard
+      title={<Trans message="AI Agent" />}
+      description={<Trans message="AI Agent is unavailable in this deployment." />}
       icon={<ChatbotIcon size="lg" />}
-      moduleName="ai"
-      getModuleLabel={<Trans message="Get AI Agent Addon" />}
     />
   );
 }

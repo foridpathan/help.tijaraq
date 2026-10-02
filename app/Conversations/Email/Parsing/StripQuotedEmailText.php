@@ -36,14 +36,15 @@ class StripQuotedEmailText
 
         // remove quoted content by "reply above ID" separator, if it was
         // not removed already via specific mail provider strip methods
-        $separator = MessageBodyPurifier::REPLY_ABOVE_ID;
-        if (Str::contains($this->crawler->outerHtml(), $separator)) {
-            $matches = $this->crawler->filter('[id*="' . $separator . '"]');
-            if ($matches->count()) {
-                $matches->each(function (Crawler $match) {
-                    $node = $match->getNode(0);
-                    $node->parentNode->removeChild($node);
-                });
+        foreach ([MessageBodyPurifier::REPLY_ABOVE_ID, MessageBodyPurifier::LEGACY_REPLY_ABOVE_ID] as $separator) {
+            if (Str::contains($this->crawler->outerHtml(), $separator)) {
+                $matches = $this->crawler->filter('[id*="' . $separator . '"]');
+                if ($matches->count()) {
+                    $matches->each(function (Crawler $match) {
+                        $node = $match->getNode(0);
+                        $node->parentNode->removeChild($node);
+                    });
+                }
             }
         }
 
