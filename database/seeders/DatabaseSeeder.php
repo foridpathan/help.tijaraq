@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Common\Auth\Roles\Role;
-use Common\Database\CreateDefaultCustomPages;
 use Common\Database\CreateDefaultMenus;
 use Common\Database\InsertDefaultSettings;
 use Common\Database\Seeders\CssThemesTableSeeder;
@@ -23,7 +22,6 @@ class DatabaseSeeder extends Seeder
 
         (new InsertDefaultSettings())->execute();
         (new CreateDefaultMenus())->execute();
-        (new CreateDefaultCustomPages())->execute();
         $this->call(TijaraqBrandingSeeder::class);
 
         $this->call(AdminAccountSeeder::class);

@@ -10,7 +10,6 @@ import {showHttpErrorToast} from '@common/http/show-http-error-toast';
 import {Accordion} from '@common/ui/library/accordion/accordion';
 import {Button} from '@common/ui/library/buttons/button';
 import {Trans} from '@common/ui/library/i18n/trans';
-import {ArrowForwardIcon} from '@common/ui/library/icons/material/ArrowForward';
 import {useRequiredParams} from '@common/ui/navigation/use-required-params';
 import {useMutation, useSuspenseQuery} from '@tanstack/react-query';
 import {message} from '@ui/i18n/message';
@@ -19,7 +18,7 @@ import {useDialogContext} from '@ui/overlays/dialog/dialog-context';
 import {DialogTrigger} from '@ui/overlays/dialog/dialog-trigger';
 import {toast} from '@ui/toast/toast';
 import {useState} from 'react';
-import {Link, useNavigate} from 'react-router';
+import {useNavigate} from 'react-router';
 import {Fragment} from 'react/jsx-runtime';
 import {AiAgentPageHeader} from '../ai-agent-page-header';
 
@@ -44,15 +43,6 @@ export function Component() {
               <TransferPanel />
             </Accordion>
             <div className="mt-24 flex items-center justify-between gap-24 pl-8">
-              <Button
-                elementType={Link}
-                to="/admin/settings/ai"
-                variant="link"
-                color="primary"
-                startIcon={<ArrowForwardIcon />}
-              >
-                <Trans message="Additional AI settings" />
-              </Button>
               <DialogTrigger type="modal">
                 <Button variant="text" size="xs">
                   <Trans message="Delete AI Agent" />

@@ -11,11 +11,6 @@ export const helpdeskReportRoutes: RouteObject[] = [
         element: <Navigate to="tickets" replace />,
       },
       {
-        path: 'chats',
-        lazy: () =>
-          import('@app/dashboard/reports/conversations-overview-report-page'),
-      },
-      {
         path: 'tickets',
         lazy: () =>
           import('@app/dashboard/reports/conversations-overview-report-page'),
@@ -26,19 +21,6 @@ export const helpdeskReportRoutes: RouteObject[] = [
           import(
             '@app/dashboard/reports/team/teammate-performance-report-page'
           ),
-      },
-      {
-        path: 'campaigns',
-        lazy: () =>
-          import('@livechat/dashboard/reports/all-campaigns-report-page'),
-      },
-      {
-        path: 'campaigns/:campaignId',
-        lazy: () => import('@livechat/dashboard/reports/campaign-report-page'),
-      },
-      {
-        path: 'ai-agent',
-        lazy: () => import('@ai/ai-agent/reports/ai-agent-report-page'),
       },
       {
         path: 'tags',

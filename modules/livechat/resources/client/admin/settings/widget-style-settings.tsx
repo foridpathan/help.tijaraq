@@ -91,14 +91,14 @@ function LogoSection() {
           label={<Trans message="Light mode" />}
           uploadType={UploadType.brandingImages}
           className="min-w-[186px] max-w-max"
-          defaultValue="images/tijaraq-mark-dark.svg"
+          defaultValue="images/favicon.png"
         />
         <FormImageSelector
           name={`client.chatWidget.logo_light`}
           label={<Trans message="Dark mode" />}
           uploadType={UploadType.brandingImages}
           className="min-w-[186px] max-w-max"
-          defaultValue="images/tijaraq-mark-light.svg"
+          defaultValue="images/faviconDark.png"
         />
       </div>
     </div>

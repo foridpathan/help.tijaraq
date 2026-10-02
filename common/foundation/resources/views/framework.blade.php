@@ -44,7 +44,7 @@
             content="width=device-width, initial-scale=1, maximum-scale=5"
             data-keep="true"
         />
-        @php($favicon = settings('branding.favicon', 'images/tijaraq-mark-dark.svg'))
+        @php($favicon = settings('branding.favicon', 'images/favicon.png'))
         <link
             rel="icon"
             type="{{ str_contains($favicon, '.svg') ? 'image/svg+xml' : 'image/png' }}"

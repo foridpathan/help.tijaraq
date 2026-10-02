@@ -22,8 +22,6 @@ export const AdminSidebarIcons = {
   '/admin/logs': FileClockIcon,
   '/admin/attributes': TextFieldsIcon,
   '/admin/triggers': AltRouteIcon,
-  '/admin/ai-agents': dashboardIcons.aiAgent,
-  '/admin/campaigns': dashboardIcons.campaigns,
   '/admin/team': dashboardIcons.team,
   '/admin/views': dashboardIcons.views,
   '/admin/statuses': dashboardIcons.status,
@@ -36,8 +34,6 @@ export const AdminSidebarIcons = {
 // settings nav config
 export const AppSettingsNavConfig: SettingsNavItem[] = [
   {label: message('Tickets'), to: 'tickets', position: 2},
-  {label: message('Livechat'), to: 'livechat', position: 3},
-  {label: message('AI & Agents'), to: 'ai', position: 4},
   {label: message('Help center'), to: 'hc', position: 5},
   {label: message('Integration'), to: 'tijaraq', position: 6},
   {label: message('Search'), to: 'search', position: 7},
@@ -51,8 +47,6 @@ export const AdminDocsUrls = {
     general: `${base}/42/46/269`,
     search: `${base}/42/46/159`,
     tickets: `${base}/42/46/271`,
-    liveChat: `${base}/42/71/241`,
-    ai: `${base}/42/68/227`,
     themes: `${base}/42/46/270`,
     helpCenter: `${base}/42/73/243`,
     menus: `${base}/42/46/272`,
@@ -89,9 +83,5 @@ export const AdminDocsUrls = {
     files: `${base}/42/74/266`,
     customPages: `${base}/42/46/267`,
     logs: `${base}/42/76/268`,
-    aiAgentSettings: `${base}/42/68/286`,
-    aiAgentKnowledge: `${base}/42/68/287`,
-    flows: `${base}/42/68/288`,
-    tools: `${base}/42/68/289`,
   },
 } as any;

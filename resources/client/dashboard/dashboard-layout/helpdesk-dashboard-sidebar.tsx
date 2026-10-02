@@ -21,8 +21,6 @@ import {Link} from 'react-router';
 
 const defaultIcons = {
   '/dashboard/conversations': dashboardIcons.inbox,
-  '/dashboard/campaigns': dashboardIcons.campaigns,
-  '/dashboard/ai-agents': dashboardIcons.aiAgent,
   '/dashboard/archive': dashboardIcons.archive,
   '/dashboard/team': dashboardIcons.team,
   '/dashboard/reports': dashboardIcons.reports,

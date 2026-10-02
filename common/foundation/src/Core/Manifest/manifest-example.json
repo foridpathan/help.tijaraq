@@ -9,9 +9,9 @@
   "start_url": "DUMMY_START_URL",
   "icons": [
     {
-      "src": "images/tijaraq-mark-dark.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "images/favicon.png",
+      "sizes": "301x301",
+      "type": "image/png"
     }
   ]
 }

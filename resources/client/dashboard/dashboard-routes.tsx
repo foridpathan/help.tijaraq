@@ -1,4 +1,3 @@
-import {aiAgentRoutes} from '@ai/ai-agent/ai-agent-routes';
 import {cannedRepliesRoutes} from '@app/canned-replies/canned-replies-routes';
 import {customersRoutes} from '@app/dashboard/contacts/customers-routes';
 import {getConversationListLayout} from '@app/dashboard/conversations/conversation-page/use-agent-inbox-layout';
@@ -11,7 +10,6 @@ import {shouldRevalidateDatatableLoader} from '@common/datatable/filters/utils/s
 import {PageErrorMessage} from '@common/errors/page-error-message';
 import {queryClient} from '@common/http/query-client';
 import {notificationSubscriptionsQueryOptions} from '@common/notifications/subscriptions/requests/notification-subscriptions';
-import {campaignsRoutes} from '@livechat/dashboard/campaigns/campaigns-routes';
 import {searchParamsFromUrl} from '@ui/utils/urls/search-params-from-url';
 import {Navigate, Outlet, redirect, RouteObject} from 'react-router';
 
@@ -174,10 +172,8 @@ export const dashboardRoutes: RouteObject[] = [
 
       ...customersRoutes,
       ...viewsRoutes,
-      ...campaignsRoutes,
       ...teamRoutes,
       ...cannedRepliesRoutes(true),
-      ...aiAgentRoutes,
     ],
   },
 ];

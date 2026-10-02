@@ -6,40 +6,21 @@ import {authGuard} from '@common/auth/guards/auth-route';
 import {RootErrorElement, RootRoute} from '@common/core/common-provider';
 import {commonRoutes} from '@common/core/common-routes';
 import {notificationRoutes} from '@common/notifications/notification-routes';
-import {HcLivechatWidgetLoader} from '@livechat/hc-livechat-widget-loader';
 import {getBootstrapData} from '@ui/bootstrap-data/bootstrap-data-store';
 import {FullPageLoader} from '@ui/progress/full-page-loader';
 import {createBrowserRouter} from 'react-router';
-import {Fragment} from 'react/jsx-runtime';
-
-function RootAppRoute() {
-  return (
-    <Fragment>
-      <RootRoute />
-      <HcLivechatWidgetLoader />
-    </Fragment>
-  );
-}
 
 export const appRouter = createBrowserRouter(
   [
     {
       id: 'root',
-      element: <RootAppRoute />,
+      element: <RootRoute />,
       errorElement: <RootErrorElement />,
       hydrateFallbackElement: <FullPageLoader screen />,
       children: [
         {
           path: '/',
           lazy: () => import('@app/help-center/homepage/hc-landing-page'),
-        },
-        {
-          path: 'livechat',
-          lazy: () => import('@livechat/chat-page/chat-page'),
-        },
-        {
-          path: 'livechat/:conversationId',
-          lazy: () => import('@livechat/chat-page/chat-page'),
         },
         ...authRoutes({
           loginRoute: {

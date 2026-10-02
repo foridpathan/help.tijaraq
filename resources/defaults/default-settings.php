@@ -3,24 +3,24 @@
 return [
     //branding
     ['name' => 'branding.site_name', 'value' => 'TijaraQ Help'],
-    ['name' => 'branding.favicon', 'value' => 'images/tijaraq-mark-dark.svg'],
+    ['name' => 'branding.favicon', 'value' => 'images/favicon.png'],
 
     // logos
     [
         'name' => 'branding.logo_dark',
-        'value' => 'images/tijaraq-logo-dark.svg',
+        'value' => 'images/logo_dark.png',
     ],
     [
         'name' => 'branding.logo_dark_mobile',
-        'value' => 'images/tijaraq-mark-dark.svg',
+        'value' => 'images/favicon.png',
     ],
     [
         'name' => 'branding.logo_light',
-        'value' => 'images/tijaraq-logo-light.svg',
+        'value' => 'images/logo_light.png',
     ],
     [
         'name' => 'branding.logo_light_mobile',
-        'value' => 'images/tijaraq-mark-light.svg',
+        'value' => 'images/faviconDark.png',
     ],
     [
         'name' => 'homepage.type',
@@ -219,18 +219,25 @@ return [
                         'permissions' => ['api.access'],
                     ],
                     [
-                        'type' => 'route',
+                        'type' => 'link',
                         'id' => 'rlz27v',
                         'position' => 2,
                         'label' => 'Privacy Policy',
-                        'action' => '/pages/privacy-policy',
+                        'action' => 'https://tijaraq.com/privacy-policy/',
                     ],
                     [
-                        'type' => 'route',
+                        'type' => 'link',
                         'id' => 'p80pvk',
                         'position' => 3,
                         'label' => 'Terms of Service',
-                        'action' => '/pages/terms-of-service',
+                        'action' => 'https://tijaraq.com/terms-of-service/',
+                    ],
+                    [
+                        'type' => 'link',
+                        'id' => 'tijaraq-about',
+                        'position' => 4,
+                        'label' => 'About TijaraQ',
+                        'action' => 'https://tijaraq.com/about-us/',
                     ],
                 ],
             ],

@@ -63,6 +63,10 @@ Route::post('tickets/mail/incoming/gmail', [
 ])->withoutMiddleware(VerifyCsrfToken::class)->middleware('throttle:120,1');
 
 //FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED
+Route::redirect('pages/privacy-policy', 'https://tijaraq.com/privacy-policy/', 301);
+Route::redirect('pages/terms-of-service', 'https://tijaraq.com/terms-of-service/', 301);
+Route::redirect('pages/about-us', 'https://tijaraq.com/about-us/', 301);
+
 Route::get('/', HcLandingPageController::class);
 Route::get('hc', HcLandingPageController::class);
 Route::get('hc/articles/{articleId}/{slug}', [HcArticleController::class, 'show']);

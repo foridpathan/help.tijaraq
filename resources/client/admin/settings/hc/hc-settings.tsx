@@ -87,11 +87,6 @@ const sections = [
     component: DataSettings,
     route: routes.home.route,
   },
-  {
-    label: message('Livechat'),
-    component: LivechatSettings,
-    route: routes.home.route,
-  },
 ];
 
 export function Component() {
@@ -125,7 +120,6 @@ export function Component() {
         },
         hc: {
           newTicket: {appearance: s.hc?.newTicket?.appearance ?? {}},
-          showLivechat: s.hc?.showLivechat ?? false,
         },
       },
     },
@@ -495,19 +489,6 @@ function DataSettings() {
         <ExportButton />
       </div>
     </div>
-  );
-}
-
-function LivechatSettings() {
-  return (
-    <FormSwitch
-      name="client.hc.showLivechat"
-      description={
-        <Trans message="Show livechat launcher on all help center pages" />
-      }
-    >
-      <Trans message="Show livechat" />
-    </FormSwitch>
   );
 }
 

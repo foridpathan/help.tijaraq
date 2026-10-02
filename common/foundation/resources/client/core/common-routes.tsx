@@ -1,10 +1,22 @@
 import {NotFoundPage} from '@common/ui/not-found-page/not-found-page';
-import {RouteObject} from 'react-router';
+import {redirectDocument, RouteObject} from 'react-router';
 
 export const commonRoutes: RouteObject[] = [
   {
     path: 'contact',
     lazy: () => import('@common/contact/contact-us-page'),
+  },
+  {
+    path: 'pages/privacy-policy',
+    loader: () => redirectDocument('https://tijaraq.com/privacy-policy/'),
+  },
+  {
+    path: 'pages/terms-of-service',
+    loader: () => redirectDocument('https://tijaraq.com/terms-of-service/'),
+  },
+  {
+    path: 'pages/about-us',
+    loader: () => redirectDocument('https://tijaraq.com/about-us/'),
   },
   {
     path: 'pages/:pageSlug',

@@ -1,4 +1,3 @@
-import {aiAgentRoutes} from '@ai/ai-agent/ai-agent-routes';
 import {adminQueries} from '@app/admin/admin-queries';
 import {cannedRepliesRoutes} from '@app/canned-replies/canned-replies-routes';
 import {customersRoutes} from '@app/dashboard/contacts/customers-routes';
@@ -17,7 +16,6 @@ import {adminLocalizationsRoutes} from '@common/admin/translations/admin-localiz
 import {authGuard} from '@common/auth/guards/auth-route';
 import {shouldRevalidateDatatableLoader} from '@common/datatable/filters/utils/should-revalidate-datatable-loader';
 import {queryClient} from '@common/http/query-client';
-import {campaignsRoutes} from '@livechat/dashboard/campaigns/campaigns-routes';
 import {searchParamsFromUrl} from '@ui/utils/urls/search-params-from-url';
 import {redirect, RouteObject} from 'react-router';
 import {Fragment} from 'react/jsx-runtime';
@@ -36,12 +34,10 @@ export const adminRoutes: RouteObject[] = [
       ...helpdeskReportRoutes,
       ...teamRoutes,
       ...customersRoutes,
-      ...campaignsRoutes,
       ...viewsRoutes,
       ...statusesRoutes,
       ...hcManagerRoutes,
       ...cannedRepliesRoutes(false),
-      ...aiAgentRoutes,
 
       ...Object.values(adminRolesRoutes),
       ...Object.values(adminCustomPagesRoutes),
@@ -73,14 +69,6 @@ export const adminRoutes: RouteObject[] = [
               import(
                 '@common/admin/settings/pages/email-settings/incoming-email/incoming-email-settings'
               ),
-          },
-          // {
-          //   path: 'livechat',
-          //   lazy: () => import('@livechat/admin/settings/livechat-settings'),
-          // },
-          {
-            path: 'ai',
-            lazy: () => import('@ai/admin/settings/ai-settings-page'),
           },
           {
             path: 'tijaraq',
