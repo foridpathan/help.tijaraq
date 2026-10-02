@@ -6,7 +6,6 @@ import {
 } from '@common/http/use-url-backed-tabs';
 import {message} from '@ui/i18n/message';
 import {Trans} from '@ui/i18n/trans';
-import {useSettings} from '@ui/settings/use-settings';
 import {Tab} from '@ui/tabs/tab';
 import {TabList} from '@ui/tabs/tab-list';
 import {Tabs} from '@ui/tabs/tabs';
@@ -18,7 +17,6 @@ export const updateUserPageTabs: UrlBackedTabConfig[] = [
   {uri: 'permissions', label: message('Roles & permissions')},
   {uri: 'security', label: message('Security')},
   {uri: 'date', label: message('Date & time')},
-  {uri: 'api', label: message('API')},
 ];
 
 interface Props {
@@ -26,20 +24,15 @@ interface Props {
   user: UpdateUserPageUser;
 }
 export function UpdateUserPageTabs({user, tabs}: Props) {
-  const {user: authUser, hasPermission} = useAuth();
-  const {api} = useSettings();
-  const apiEnabled = api?.integrated && hasPermission('api.access');
+  const {user: authUser} = useAuth();
   const filteredTabs = useMemo(() => {
     return tabs.filter(tab => {
-      if (tab.uri === 'api' && !apiEnabled) {
-        return false;
-      }
       if (tab.uri === 'security' && user.id !== authUser?.id) {
         return false;
       }
       return true;
     });
-  }, [user.id, authUser?.id, apiEnabled, tabs]);
+  }, [user.id, authUser?.id, tabs]);
 
   const [activeTab, setActiveTab] = useUrlBackedTabs(filteredTabs);
 

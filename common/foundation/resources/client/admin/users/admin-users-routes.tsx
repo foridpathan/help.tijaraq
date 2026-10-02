@@ -63,11 +63,6 @@ export const adminUsersRoutes: Record<string, RouteObject> = {
             '@common/admin/users/update-user-page/update-user-datetime-tab'
           ),
       },
-      {
-        path: 'api',
-        lazy: () =>
-          import('@common/admin/users/update-user-page/update-user-api-tab'),
-      },
     ],
   },
 };

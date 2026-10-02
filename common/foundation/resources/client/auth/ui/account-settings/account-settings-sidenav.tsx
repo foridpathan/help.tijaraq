@@ -1,7 +1,5 @@
 import {useAllSocialLoginsDisabled} from '@common/auth/ui/use-all-social-logins-disabled';
-import {useAuth} from '@common/auth/use-auth';
 import {Trans} from '@ui/i18n/trans';
-import {ApiIcon} from '@ui/icons/material/Api';
 import {DangerousIcon} from '@ui/icons/material/Dangerous';
 import {DevicesIcon} from '@ui/icons/material/Devices';
 import {LanguageIcon} from '@ui/icons/material/Language';
@@ -10,7 +8,6 @@ import {LoginIcon} from '@ui/icons/material/Login';
 import {PersonIcon} from '@ui/icons/material/Person';
 import {PhonelinkLockIcon} from '@ui/icons/material/PhonelinkLock';
 import {List, ListItem} from '@ui/list/list';
-import {useSettings} from '@ui/settings/use-settings';
 import {ReactNode} from 'react';
 
 export enum AccountSettingsId {
@@ -19,7 +16,6 @@ export enum AccountSettingsId {
   Password = 'password',
   TwoFactor = 'two-factor',
   LocationAndLanguage = 'location-and-language',
-  Developers = 'developers',
   DeleteAccount = 'delete-account',
   Sessions = 'sessions',
 }
@@ -30,8 +26,6 @@ interface Props {
 export function AccountSettingsSidenav({items}: Props) {
   const p = AccountSettingsId;
 
-  const {hasPermission} = useAuth();
-  const {api} = useSettings();
 
   const allSocialsDisabled = useAllSocialLoginsDisabled();
 
@@ -71,11 +65,6 @@ export function AccountSettingsSidenav({items}: Props) {
         >
           <Trans message="Location and language" />
         </AccountSettingsSidenavItem>
-        {api?.integrated && hasPermission('api.access') ? (
-          <AccountSettingsSidenavItem icon={<ApiIcon />} panel={p.Developers}>
-            <Trans message="Developers" />
-          </AccountSettingsSidenavItem>
-        ) : null}
         <AccountSettingsSidenavItem
           icon={<DangerousIcon />}
           panel={p.DeleteAccount}

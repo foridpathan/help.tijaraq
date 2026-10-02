@@ -29,6 +29,7 @@ return [
 
     //cache
     ['name' => 'cache.report_minutes', 'value' => 60],
+    ['name' => 'chat.enabled', 'value' => true],
 
     // menus
     [
@@ -160,6 +161,20 @@ return [
                 'positions' => ['dashboard-sidebar'],
                 'items' => [
                     [
+                        'label' => 'Livechat',
+                        'id' => 'tijaraq-livechat-agent',
+                        'action' => '/dashboard/livechat',
+                        'type' => 'route',
+                        'permissions' => ['conversations.update'],
+                    ],
+                    [
+                        'label' => 'AI assistant',
+                        'id' => 'tijaraq-ai-assistant',
+                        'action' => '/dashboard/ai-assistant',
+                        'type' => 'route',
+                        'permissions' => ['conversations.update'],
+                    ],
+                    [
                         'label' => 'Conversations',
                         'id' => 'x5k480',
                         'action' => '/dashboard/conversations?viewId=mine',
@@ -209,15 +224,6 @@ return [
                 'id' => '4tbwog',
                 'positions' => ['footer'],
                 'items' => [
-                    [
-                        'type' => 'route',
-                        'id' => 'c1sf2g',
-                        'position' => 1,
-                        'label' => 'Developers',
-                        'action' => '/api-docs',
-                        'condition' => 'auth',
-                        'permissions' => ['api.access'],
-                    ],
                     [
                         'type' => 'link',
                         'id' => 'rlz27v',
@@ -316,6 +322,12 @@ return [
                 'name' => 'Header Menu',
                 'positions' => ['header'],
                 'items' => [
+                    [
+                        'type' => 'route',
+                        'id' => 'tijaraq-livechat-customer',
+                        'label' => 'Livechat',
+                        'action' => '/livechat',
+                    ],
                     [
                         'type' => 'route',
                         'id' => '6x80z1',

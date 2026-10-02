@@ -34,6 +34,8 @@ export const AdminSidebarIcons = {
 // settings nav config
 export const AppSettingsNavConfig: SettingsNavItem[] = [
   {label: message('Tickets'), to: 'tickets', position: 2},
+  {label: message('Livechat'), to: 'livechat', position: 3},
+  {label: message('AI assistant'), to: 'ai', position: 4},
   {label: message('Help center'), to: 'hc', position: 5},
   {label: message('Integration'), to: 'tijaraq', position: 6},
   {label: message('Search'), to: 'search', position: 7},

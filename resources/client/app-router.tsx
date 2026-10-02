@@ -22,6 +22,11 @@ export const appRouter = createBrowserRouter(
           path: '/',
           lazy: () => import('@app/help-center/homepage/hc-landing-page'),
         },
+        {
+          path: 'livechat',
+          loader: () => authGuard(),
+          lazy: () => import('@app/livechat/tijaraq-chat-page').then(({CustomerChatPage}) => ({Component: CustomerChatPage})),
+        },
         ...authRoutes({
           loginRoute: {
             lazy: () => import('@app/auth/app-login-page'),
@@ -42,12 +47,6 @@ export const appRouter = createBrowserRouter(
           path: '/agents/join/:inviteId',
           handle: {inviteType: 'agentInvite'},
           lazy: () => import('@app/auth/app-register-page'),
-        },
-        {
-          path: 'api-docs',
-          loader: () =>
-            authGuard({permission: 'api.access', requireLogin: false}),
-          lazy: () => import('@common/swagger/swagger-api-docs-page'),
         },
       ],
     },

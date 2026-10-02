@@ -92,6 +92,5 @@ return [
         '/admin/settings/branding',
         '/admin/settings/cache',
         '/admin/settings/providers',
-        '/api-docs',
     ],
 ];

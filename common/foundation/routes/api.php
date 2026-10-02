@@ -80,7 +80,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('file-entries/{id}/add-preview-token', [AddPreviewTokenController::class, 'store']);
         Route::post('file-entries/restore', [RestoreDeletedEntriesController::class, 'restore']);
 
-        // for swagger api docs
         Route::post('uploads', [FileEntriesController::class, 'store']);
         Route::post('file-entries', [FileEntriesController::class, 'store']);
         Route::put('file-entries/{id}', [FileEntriesController::class, 'update']);

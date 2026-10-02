@@ -103,7 +103,6 @@ export function Component() {
 
 function ApiPanel() {
   const {
-    base_url,
     branding: {site_name},
   } = useSettings();
   return (
@@ -117,12 +116,6 @@ function ApiPanel() {
           values={{siteName: site_name}}
         />
       </p>
-      <DocsLink
-        className="mt-12 text-sm"
-        link={`${base_url}/api-docs#Tickets-incomingEmail`}
-      >
-        <Trans message="API docs" />
-      </DocsLink>
     </div>
   );
 }

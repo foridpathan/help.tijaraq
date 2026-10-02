@@ -66,6 +66,7 @@ Route::post('tickets/mail/incoming/gmail', [
 Route::redirect('pages/privacy-policy', 'https://tijaraq.com/privacy-policy/', 301);
 Route::redirect('pages/terms-of-service', 'https://tijaraq.com/terms-of-service/', 301);
 Route::redirect('pages/about-us', 'https://tijaraq.com/about-us/', 301);
+Route::any('api-docs/{path?}', fn() => abort(404))->where('path', '.*');
 
 Route::get('/', HcLandingPageController::class);
 Route::get('hc', HcLandingPageController::class);

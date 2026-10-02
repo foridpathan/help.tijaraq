@@ -64,6 +64,14 @@ export const adminRoutes: RouteObject[] = [
             lazy: () => import('@app/admin/settings/hc/hc-settings'),
           },
           {
+            path: 'livechat',
+            lazy: () => import('@app/admin/settings/tijaraq-chat-settings'),
+          },
+          {
+            path: 'ai',
+            lazy: () => import('@app/admin/settings/tijaraq-ai-settings'),
+          },
+          {
             path: 'email/incoming',
             lazy: () =>
               import(

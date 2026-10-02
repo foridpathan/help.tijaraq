@@ -9,7 +9,6 @@ import {ProgressCircle} from '@ui/progress/progress-circle';
 import {User} from '@ui/types/user';
 import {ReactNode} from 'react';
 import {useUser} from '../use-user';
-import {AccessTokenPanel} from './access-token-panel/access-token-panel';
 import {BasicInfoPanel} from './basic-info-panel/basic-info-panel';
 import {ChangePasswordPanel} from './change-password-panel/change-password-panel';
 import {DangerZonePanel} from './danger-zone-panel/danger-zone-panel';
@@ -22,7 +21,7 @@ interface Props {
 }
 export function AccountSettingsPage({panels, sidenavItems}: Props) {
   const {data, isLoading} = useUser('me', {
-    with: ['roles', 'social_profiles', 'tokens'],
+    with: ['roles', 'social_profiles'],
   });
   return (
     <AuthRoute>
@@ -60,7 +59,6 @@ export function AccountSettingsPage({panels, sidenavItems}: Props) {
                   <TwoFactorPanel user={data.user} />
                   <SessionsPanel />
                   <LocalizationPanel user={data.user} />
-                  <AccessTokenPanel user={data.user} />
                   <DangerZonePanel />
                 </main>
               </div>

@@ -17,6 +17,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Livechat\Events\ChatChanged;
 
 class CreateTicketAsCustomer
 {
@@ -62,6 +63,7 @@ class CreateTicketAsCustomer
         );
 
         event(new ConversationCreated($conversation));
+        ChatChanged::notify($conversation, 'created');
 
         $this->sendTicketReceivedEmail($conversation, $message);
 

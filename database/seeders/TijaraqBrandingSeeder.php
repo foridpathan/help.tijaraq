@@ -44,9 +44,32 @@ class TijaraqBrandingSeeder extends Seeder
         if ($menusSetting) {
             $menus = $menusSetting->value;
             foreach ($menus as &$menu) {
+                $newItems = match ($menu['name'] ?? '') {
+                    'Dashboard sidebar' => [
+                        ['id' => 'tijaraq-livechat-agent', 'label' => 'Livechat', 'action' => '/dashboard/livechat', 'type' => 'route', 'permissions' => ['conversations.update']],
+                        ['id' => 'tijaraq-ai-assistant', 'label' => 'AI assistant', 'action' => '/dashboard/ai-assistant', 'type' => 'route', 'permissions' => ['conversations.update']],
+                    ],
+                    'Header Menu' => [
+                        ['id' => 'tijaraq-livechat-customer', 'label' => 'Livechat', 'action' => '/livechat', 'type' => 'route'],
+                    ],
+                    default => [],
+                };
+                foreach ($newItems as $newItem) {
+                    if (!collect($menu['items'])->contains(fn($item) => ($item['action'] ?? null) === $newItem['action'])) {
+                        $newItem['order'] = count($menu['items']);
+                        $newItem['position'] = 0;
+                        $menu['items'][] = $newItem;
+                    }
+                }
+
                 if ($menu['name'] !== 'Footer') {
                     continue;
                 }
+
+                $menu['items'] = array_values(array_filter(
+                    $menu['items'],
+                    fn($item) => ($item['action'] ?? null) !== '/api-docs',
+                ));
 
                 foreach ($menu['items'] as &$item) {
                     $destinations = [

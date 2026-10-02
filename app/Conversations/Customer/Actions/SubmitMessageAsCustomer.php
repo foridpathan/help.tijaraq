@@ -8,6 +8,7 @@ use App\Conversations\Messages\CreateConversationMessage;
 use App\Conversations\Models\Conversation;
 use App\Conversations\Models\ConversationItem;
 use App\Conversations\Models\ConversationStatus;
+use Livechat\Events\ChatChanged;
 
 class SubmitMessageAsCustomer
 {
@@ -26,6 +27,7 @@ class SubmitMessageAsCustomer
         $conversation->user->touchLastActiveAt();
 
         event(new ConversationMessageCreated($conversation, $message));
+        ChatChanged::notify($conversation);
         $updatedEvent->dispatch([$conversation]);
 
         if ($conversation->status_category <= Conversation::STATUS_OPEN) {

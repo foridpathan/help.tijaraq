@@ -18,11 +18,6 @@ class EnsureFrontendRequestsAreStateful extends LaravelMiddleware
             return false;
         }
 
-        // make sure api calls from api docs page are not considered stateful to avoid 419 errors on POST requests
-        if (Str::contains($domain, '/api-docs')) {
-            return false;
-        }
-
         $domain = parse_url($domain, PHP_URL_HOST) ?? $domain;
         $domain = Str::replaceFirst('www.', '', $domain);
         $domain = Str::endsWith($domain, '/') ? $domain : "{$domain}/";

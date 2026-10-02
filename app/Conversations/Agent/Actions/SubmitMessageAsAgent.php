@@ -12,6 +12,7 @@ use App\Core\Modules;
 use Illuminate\Support\Facades\Auth;
 use App\Contacts\Models\PageVisit;
 use Livechat\Notifications\CustomerReceivedReplyWhileOffline;
+use Livechat\Events\ChatChanged;
 
 class SubmitMessageAsAgent
 {
@@ -57,6 +58,7 @@ class SubmitMessageAsAgent
         }
 
         event(new ConversationMessageCreated($conversation, $message));
+        ChatChanged::notify($conversation);
         $updatedEvent->dispatch([$conversation]);
 
         return $message;

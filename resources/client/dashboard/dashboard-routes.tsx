@@ -11,6 +11,7 @@ import {PageErrorMessage} from '@common/errors/page-error-message';
 import {queryClient} from '@common/http/query-client';
 import {notificationSubscriptionsQueryOptions} from '@common/notifications/subscriptions/requests/notification-subscriptions';
 import {searchParamsFromUrl} from '@ui/utils/urls/search-params-from-url';
+import {authGuard} from '@common/auth/guards/auth-route';
 import {Navigate, Outlet, redirect, RouteObject} from 'react-router';
 
 export const dashboardRoutes: RouteObject[] = [
@@ -19,6 +20,16 @@ export const dashboardRoutes: RouteObject[] = [
     lazy: () =>
       import('@app/dashboard/dashboard-layout/helpdesk-dashboard-layout'),
     children: [
+      {
+        path: 'livechat',
+        loader: () => authGuard({permission: 'conversations.update'}),
+        lazy: () => import('@app/livechat/tijaraq-chat-page').then(({AgentChatPage}) => ({Component: AgentChatPage})),
+      },
+      {
+        path: 'ai-assistant',
+        loader: () => authGuard({permission: 'conversations.update'}),
+        lazy: () => import('@app/dashboard/tijaraq-ai-assistant-page'),
+      },
       ...hcManagerRoutes,
       ...helpdeskReportRoutes,
       {
