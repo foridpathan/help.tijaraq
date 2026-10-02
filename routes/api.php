@@ -138,6 +138,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('hc/taggables/sync-tags', [HelpCenterTaggablesController::class, 'syncTags']);
 
         // HELP CENTER CATEGORIES
+        Route::get('hc/public/categories/{categorySlug}/{sectionSlug?}', [HcCategoryController::class, 'show']);
         Route::get('hc/sidenav/{categoryId}', [HcCategoryController::class, 'sidenavContent']);
         Route::get('hc/categories/{categoryId}', [HcCategoryController::class, 'show']);
         Route::post('hc/categories', [HcCategoryController::class, 'store']);
@@ -145,6 +146,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::delete('hc/categories/{id}', [HcCategoryController::class, 'destroy']);
 
         // HELP CENTER ARTICLES
+        Route::get('hc/public/articles/{articleSlug}', [HcArticleController::class, 'show']);
+        Route::get('hc/public/articles/{categorySlug}/{sectionSlug}/{articleSlug}', [HcArticleController::class, 'show']);
         Route::get('hc/articles/{articleId}/download/{entryHash}', [HcArticleAttachmentsController::class, 'download']);
         Route::get('hc/articles/{categoryId}/{sectionId}/{articleId}', [HcArticleController::class, 'show']);
         Route::get('hc/articles/{articleId}', [HcArticleController::class, 'show']);

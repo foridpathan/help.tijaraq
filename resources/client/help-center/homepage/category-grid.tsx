@@ -19,18 +19,18 @@ export function CategoryGrid() {
   );
 
   return (
-    <div className="space-y-60">
+    <div className="hc-home-category-groups">
       {query.data.categories.map(category => (
-        <div key={category.id}>
+        <section key={category.id} className="hc-home-category-group">
           {query.data.categories.length > 1 && !category.hide_from_structure ? (
             <ParentCategoryHeader category={category} />
           ) : (
-            <h2 className="text-2xl font-bold">
+            <h2 className="hc-home-category-heading">
               <Trans message="Categories" />
             </h2>
           )}
           <CategoriesGrid categories={category.sections} />
-        </div>
+        </section>
       ))}
       <PopularArticles />
     </div>
@@ -48,7 +48,7 @@ function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
     <Fragment>
       <h2
         className={clsx(
-          'flex items-center gap-10 whitespace-nowrap text-xl md:text-3xl',
+          'hc-home-category-heading flex items-center gap-10',
           category.image && 'mb-6',
         )}
       >
@@ -58,7 +58,7 @@ function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
         <CategoryLink category={category} />
       </h2>
       {category.description && (
-        <p className="mt-4 text-sm text-muted">{category.description}</p>
+        <p className="hc-home-category-description">{category.description}</p>
       )}
     </Fragment>
   );
@@ -69,7 +69,7 @@ type CategoriesGridProps = {
 };
 function CategoriesGrid({categories}: CategoriesGridProps) {
   return (
-    <div className="mt-24 grid grid-cols-1 gap-24 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="hc-home-category-grid">
       {categories.map(category => (
         <CategoryGridItem key={category.id} category={category} />
       ))}
@@ -82,20 +82,17 @@ interface CategoryGridItemProps {
 }
 function CategoryGridItem({category}: CategoryGridItemProps) {
   return (
-    <Link
-      to={getCategoryLink(category)}
-      className="block cursor-pointer rounded-panel border border-divider-lighter p-18 shadow-sm transition-shadow hover:shadow-md"
-    >
-      <div className="flex items-center gap-16">
+    <Link to={getCategoryLink(category)} className="hc-home-category-card">
+      <div className="hc-home-category-card-top">
         {category.image && (
           <HcCategoryImage
             src={category.image}
             iconSize="w-28 h-28"
-            className="h-60 w-60 bg-alt p-4"
+            className="hc-home-category-icon h-60 w-60 p-4"
           />
         )}
         <div>
-          <h3 className="text-base font-semibold">{category.name}</h3>
+          <h3>{category.name}</h3>
           <div className="text-sm text-muted">
             <Trans
               message=":count articles"
@@ -105,7 +102,9 @@ function CategoryGridItem({category}: CategoryGridItemProps) {
         </div>
       </div>
       {category.description ? (
-        <div className="mt-12 text-sm text-muted">{category.description}</div>
+        <div className="hc-home-category-card-description">
+          {category.description}
+        </div>
       ) : null}
     </Link>
   );
@@ -121,15 +120,15 @@ function PopularArticles() {
   }
 
   return (
-    <div>
-      <h2 className="mb-24 text-2xl font-bold">
+    <section className="hc-home-popular">
+      <h2 className="hc-home-category-heading">
         <Trans message="Popular articles" />
       </h2>
-      <div className="space-y-6 rounded-panel border p-12">
+      <div className="hc-home-popular-list">
         {query.data.articles?.map(article => (
           <Link
             key={article.id}
-            className="flex cursor-pointer items-center gap-24 rounded-panel p-12 hover:bg-hover"
+            className="hc-home-popular-link"
             to={getArticleLink(article)}
           >
             <div>
@@ -140,6 +139,6 @@ function PopularArticles() {
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

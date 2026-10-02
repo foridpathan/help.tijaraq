@@ -8,14 +8,15 @@ import {CloseIcon} from '@ui/icons/material/Close';
 import {useIsDarkMode} from '@ui/themes/use-is-dark-mode';
 import clsx from 'clsx';
 import {Fragment, useContext, useEffect, useRef} from 'react';
-import {Link, useParams} from 'react-router';
+import {Link} from 'react-router';
 
 interface Props {
   categoryNav: ArticlePageData['categoryNav'];
   isCompact?: boolean;
+  activeArticleId?: number;
 }
-export function HcSidenav({categoryNav, isCompact}: Props) {
-  const {articleId} = useParams();
+export function HcSidenav({categoryNav, isCompact, activeArticleId}: Props) {
+  const articleId = activeArticleId?.toString();
   const isDarkMode = useIsDarkMode();
   const {setLeftSidenavStatus} = useContext(DashboardLayoutContext);
   const scrollContainer = useRef<HTMLDivElement>(null);

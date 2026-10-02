@@ -26,12 +26,13 @@ import {useTrans} from '@ui/i18n/use-trans';
 import {SearchIcon} from '@ui/icons/material/Search';
 import {Fragment, useRef} from 'react';
 import {Link} from 'react-router';
+import '@app/help-center/hc-content-header.css';
 
 export function Component() {
   const navigate = useNavigate();
   return (
     <div>
-      <Navbar menuPosition="header">
+      <Navbar menuPosition="header" className="hc-content-navbar">
         <HcSearchBar />
       </Navbar>
       <main className="container mx-auto px-24 pb-48">

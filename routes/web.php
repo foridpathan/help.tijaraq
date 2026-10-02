@@ -70,8 +70,12 @@ Route::any('api-docs/{path?}', fn() => abort(404))->where('path', '.*');
 
 Route::get('/', HcLandingPageController::class);
 Route::get('hc', HcLandingPageController::class);
+Route::get('hc/articles/{articleSlug}', [HcArticleController::class, 'show']);
+Route::get('hc/articles/{categorySlug}/{sectionSlug}/{articleSlug}', [HcArticleController::class, 'show']);
 Route::get('hc/articles/{articleId}/{slug}', [HcArticleController::class, 'show']);
 Route::get('hc/articles/{categoryId}/{sectionId}/{articleId}/{slug}', [HcArticleController::class, 'show']);
+Route::get('hc/categories/{categorySlug}', [HcCategoryController::class, 'show']);
+Route::get('hc/categories/{categorySlug}/{sectionSlug}', [HcCategoryController::class, 'show'])->where('categorySlug', '[^0-9]+');
 Route::get('hc/categories/{categoryId}/{sectionId}/{slug}', [HcCategoryController::class, 'show']);
 Route::get('hc/categories/{categoryId}/{slug}', [HcCategoryController::class, 'show']);
 Route::get('hc/search/{query}', HcArticleSearchController::class);

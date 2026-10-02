@@ -35,6 +35,7 @@ import {ConfirmationDialog} from '@ui/overlays/dialog/confirmation-dialog';
 import {DialogTrigger} from '@ui/overlays/dialog/dialog-trigger';
 import {toast} from '@ui/toast/toast';
 import {useRef, useState} from 'react';
+import '@app/help-center/hc-content-header.css';
 
 export function Component() {
   const {conversationId} = useRequiredParams(['conversationId']);
@@ -46,7 +47,7 @@ export function Component() {
     <div className="flex h-screen flex-col">
       <Navbar
         menuPosition="header"
-        className="customer-ticket-navbar flex-shrink-0"
+        className="hc-content-navbar customer-ticket-navbar flex-shrink-0"
       >
         <HcSearchBar />
       </Navbar>

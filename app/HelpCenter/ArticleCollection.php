@@ -35,6 +35,9 @@ class ArticleCollection extends Collection
                     ? $s->id == $sectionId
                     : $s->parent_id !== null,
             );
+            if ($section && $category) {
+                $section->setAttribute('parent_name', $category->name);
+            }
             $article->setRelation(
                 'path',
                 collect([$category, $section])

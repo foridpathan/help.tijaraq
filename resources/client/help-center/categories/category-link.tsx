@@ -44,10 +44,8 @@ export function getCategoryLink(
 ): string {
   let link =
     category.is_section || category.parent_id
-      ? `/hc/categories/${category.parent_id}/${category.id}/${slugifyString(
-          category.name,
-        )}`
-      : `/hc/categories/${category.id}/${slugifyString(category.name)}`;
+      ? `/hc/categories/${slugifyString(category.parent_name || category.parent?.name || '')}/${slugifyString(category.name)}`
+      : `/hc/categories/${slugifyString(category.name)}`;
 
   if (absolute) {
     link = `${getBootstrapData().settings.base_url}${link}`;

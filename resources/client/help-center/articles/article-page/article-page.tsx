@@ -24,13 +24,30 @@ export function Component() {
   const {hash} = useLocation();
   const settings = useSettings();
   const {hasPermission, hasRole} = useAuth();
-  const {categoryId, sectionId, articleId} = useParams();
+  const {
+    categoryId,
+    sectionId,
+    articleId,
+    articleSlug,
+    categoryPart,
+    sectionPart,
+    articlePart,
+  } = useParams();
+  const legacyArticleId =
+    articleId ||
+    (articlePart && /^\d+$/.test(articlePart) ? articlePart : undefined);
   const query = useSuspenseQuery(
-    helpCenterQueries.articles.getForArticlePage({
-      articleId: articleId!,
-      categoryId,
-      sectionId,
-    }),
+    !legacyArticleId
+      ? helpCenterQueries.articles.getForArticleSlugPage({
+          articleSlug: articleSlug || articlePart!,
+          categorySlug: categoryPart,
+          sectionSlug: sectionPart,
+        })
+      : helpCenterQueries.articles.getForArticlePage({
+          articleId: legacyArticleId,
+          categoryId: categoryId || categoryPart,
+          sectionId: sectionId || sectionPart,
+        }),
   );
 
   const canEdit =
@@ -48,13 +65,18 @@ export function Component() {
 
   return (
     <ArticlePageLayout
-      leftSidenav={<HcSidenav categoryNav={query.data.categoryNav} />}
+      leftSidenav={
+        <HcSidenav
+          categoryNav={query.data.categoryNav}
+          activeArticleId={query.data.article.id}
+        />
+      }
       rightSidenav={<RightSidenav nav={query.data.pageNav} />}
       categoryId={query.data.article.path?.[0]?.id}
     >
       <PageMetaTags query={query} />
       <article key="article">
-        <header className="mb-36">
+        <header className="hc-article-heading mb-36">
           {!!query.data.article.path?.length && (
             <ArticlePageBreadcrumb path={query.data.article.path} />
           )}

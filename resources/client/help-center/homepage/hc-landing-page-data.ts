@@ -12,6 +12,7 @@ export interface LandingPageDataCategory {
   image: string | undefined;
   description: string | undefined;
   parent_id: number | null;
+  parent_name?: string;
   articles_count: number;
   hide_from_structure: boolean;
   articles: Article[];

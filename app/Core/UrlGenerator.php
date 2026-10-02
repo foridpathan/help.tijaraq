@@ -25,15 +25,18 @@ class UrlGenerator extends BaseUrlGenerator
     public function article(array|HcArticle $article): string
     {
         return url('hc/articles') .
-            "/{$article['id']}/" .
-            slugify($article['title']);
+            '/' . (!empty($article['slug']) ? $article['slug'] : slugify($article['title']));
     }
 
     public function category(HcCategory|array $category): string
     {
+        $parentName = $category['parent_name'] ?? null;
+        if (!$parentName && !empty($category['parent_id'])) {
+            $parentName = HcCategory::find($category['parent_id'])?->name;
+        }
         return url('hc/categories') .
-            "/{$category['id']}/" .
-            slugify($category['name']);
+            ($parentName ? '/' . slugify($parentName) : '') .
+            '/' . slugify($category['name']);
     }
 
     public function search(string|null $query = null): string

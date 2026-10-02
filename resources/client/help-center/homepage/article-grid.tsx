@@ -17,14 +17,14 @@ export function ArticleGrid() {
   );
 
   return (
-    <div className="space-y-60">
+    <div className="hc-home-article-groups">
       {query.data.categories.map(category => (
-        <div key={category.id}>
+        <section key={category.id} className="hc-home-article-group">
           {query.data.categories.length > 1 && !category.hide_from_structure ? (
             <ParentCategoryHeader category={category} />
           ) : null}
           <CategoriesGrid categories={category.sections} />
-        </div>
+        </section>
       ))}
     </div>
   );
@@ -41,7 +41,7 @@ function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
     <Fragment>
       <h2
         className={clsx(
-          'flex items-center gap-10 whitespace-nowrap text-xl md:text-3xl',
+          'hc-home-category-heading flex items-center gap-10',
           category.image && 'mb-6',
         )}
       >
@@ -51,7 +51,7 @@ function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
         <CategoryLink category={category} />
       </h2>
       {category.description && (
-        <p className="mt-4 text-sm text-muted">{category.description}</p>
+        <p className="hc-home-category-description">{category.description}</p>
       )}
     </Fragment>
   );
@@ -63,7 +63,7 @@ type CategoriesGridProps = {
 function CategoriesGrid({categories}: CategoriesGridProps) {
   const {hcLanding} = useSettings();
   return (
-    <div className="mt-34 grid grid-cols-1 gap-x-54 gap-y-84 md:grid-cols-3">
+    <div className="hc-home-article-grid">
       {categories.map(category => {
         if (hcLanding?.hide_small_categories && category.articles.length < 2) {
           return null;
@@ -79,26 +79,28 @@ interface ArticleGridItemProps {
 }
 function ArticleGridItem({category}: ArticleGridItemProps) {
   return (
-    <div className="flex flex-col">
-      <div className="mb-16 border-b pb-8">
+    <div className="hc-home-article-card">
+      <div className="hc-home-article-card-heading">
         <div className="flex items-center gap-4">
           {category.image && (
             <HcCategoryImage src={category.image} iconSize="w-20 h-20" />
           )}
-          <h3 className="text-lg font-semibold">
+          <h3>
             <CategoryLink category={category} />
           </h3>
         </div>
-        <div className="text-sm text-muted">{category.description}</div>
+        <div className="hc-home-article-card-description">
+          {category.description}
+        </div>
       </div>
 
-      <div className="mb-24">
+      <div className="hc-home-article-links">
         {category.articles.map(article => (
           <ArticleLink
             key={article.id}
             article={article}
             section={category}
-            className="group flex items-center gap-8 py-12 text-base"
+            className="hc-home-article-link group flex items-center gap-8"
           >
             <span className="mr-auto block">{article.title}</span>
             <KeyboardArrowRightIcon
@@ -112,7 +114,7 @@ function ArticleGridItem({category}: ArticleGridItemProps) {
       {category.articles.length < category.articles_count && (
         <CategoryLink
           category={category}
-          className="mt-auto flex items-center gap-4 text-base font-semibold"
+          className="hc-home-see-all mt-auto flex items-center gap-4 font-semibold"
         >
           <Trans
             message="See all :count articles"

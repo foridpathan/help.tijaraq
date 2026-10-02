@@ -33,12 +33,22 @@ class HcArticleLoader
             abort(404);
         }
 
-        $article = HcArticle::findOrFail($articleId);
+        if (request()->route('articleSlug')) {
+            $section = null;
+            $sectionId = null;
+            if (request()->route('categorySlug')) {
+                $category = ResolveHcSlug::category(request()->route('categorySlug'));
+                $section = ResolveHcSlug::category(request()->route('sectionSlug'), $category->id);
+                $categoryId = $category->id;
+                $sectionId = $section->id;
+            }
+            $article = ResolveHcSlug::article(request()->route('articleSlug'), $section);
+        } else {
+            $article = HcArticle::findOrFail($articleId);
+            $sectionId = request()->route('sectionId');
+        }
         $article = (new ArticleCollection([$article]))
-            ->loadPath(
-                request()->route('categoryId'),
-                request()->route('sectionId'),
-            )
+            ->loadPath($categoryId, $sectionId)
             ->first();
 
         if ($loader === 'updateArticle') {
@@ -63,12 +73,12 @@ class HcArticleLoader
 
         // prefix help center urls with full path in article body
         if ($article->path->count() > 1) {
-            $category = $article->path[0]['id'];
-            $section = $article->path[1]['id'];
+            $category = slugify($article->path[0]['name']);
+            $section = slugify($article->path[1]['name']);
 
             $body = preg_replace(
                 '/"hc\/articles\/([0-9]+)\/([a-z0-9\-]+)"/',
-                "hc/articles/$category/$section/$1/$2",
+                "\"hc/articles/$category/$section/$2\"",
                 $body,
             );
         }
@@ -148,6 +158,7 @@ class HcArticleLoader
 
     public function loadCategoryNav(int $categoryId): Collection
     {
+        $parentName = HcCategory::find($categoryId)?->name;
         return HcCategory::where('parent_id', $categoryId)
             ->filterByVisibleToRole()
             ->orderByPosition()
@@ -161,6 +172,7 @@ class HcArticleLoader
                     'id' => $section->id,
                     'name' => $section->name,
                     'parent_id' => $section->parent_id,
+                    'parent_name' => $parentName,
                     'articles' => $section->articles->map(
                         fn(HcArticle $article) => [
                             'id' => $article->id,

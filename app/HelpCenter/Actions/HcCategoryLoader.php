@@ -8,9 +8,15 @@ class HcCategoryLoader
 {
     public function loadData(): array
     {
-        $categoryId =
-            request()->route('sectionId') ?? request()->route('categoryId');
-        $category = HcCategory::findOrFail($categoryId);
+        if (request()->route('categorySlug')) {
+            $parent = ResolveHcSlug::category(request()->route('categorySlug'));
+            $category = request()->route('sectionSlug')
+                ? ResolveHcSlug::category(request()->route('sectionSlug'), $parent->id)
+                : $parent;
+        } else {
+            $categoryId = request()->route('sectionId') ?? request()->route('categoryId');
+            $category = HcCategory::findOrFail($categoryId);
+        }
 
         $data = ['category' => $category, 'loader' => 'categoryPage'];
 

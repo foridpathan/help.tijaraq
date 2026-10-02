@@ -24,26 +24,26 @@ export function ColorfulHeader() {
   const cssProps = useLandingPageHeaderBackground();
 
   return (
-    <div
-      className="relative mb-30 overflow-hidden bg-primary-dark pt-20 text-white dark:bg-primary-dark/40 md:mb-60"
-      style={cssProps}
-    >
+    <div className="hc-home-hero hc-home-hero--colorful" style={cssProps}>
       <Navbar
         color="transparent"
         darkModeColor="transparent"
-        className="container relative z-10 mx-auto"
+        className="hc-home-navbar container relative z-10 mx-auto"
         menuPosition="header"
         primaryButtonColor="white"
       />
       {!config?.background && <LandingPagePattern />}
-      <div className="relative mx-auto px-24 pb-34 pt-40 md:px-50 md:pb-64 md:pt-70 lg:max-w-850">
+      <div className="hc-home-hero-content">
+        <span className="hc-home-kicker">
+          <Trans message="HELP CENTER" />
+        </span>
         {config?.title && (
-          <h1 className="text-center text-3xl md:text-5xl">
+          <h1>
             <Trans message={config?.title} />
           </h1>
         )}
         {config?.subtitle && (
-          <p className="mt-12 text-center text-base md:text-xl">
+          <p className="hc-home-subtitle">
             <Trans message={config?.subtitle} />
           </p>
         )}
@@ -60,7 +60,7 @@ export function ColorfulHeader() {
 interface SearchFieldProps {
   placeholder?: string;
 }
-function SearchField({placeholder}: SearchFieldProps) {
+export function SearchField({placeholder}: SearchFieldProps) {
   const [query, setQuery] = useState('');
   const searchLogger = useSearchTermLogger();
   const {data, isLoading} = useQuery(
@@ -76,7 +76,7 @@ function SearchField({placeholder}: SearchFieldProps) {
   const lightThemeVars = useLightThemeVariables();
 
   return (
-    <div style={lightThemeVars}>
+    <div className="hc-home-search" style={lightThemeVars}>
       <ComboBox
         inputValue={query}
         onInputValueChange={setQuery}
@@ -87,7 +87,7 @@ function SearchField({placeholder}: SearchFieldProps) {
         hideEndAdornment
         placeholder={placeholder}
         startAdornment={<SearchIcon className="ml-8" />}
-        className="relative mt-34"
+        className="relative"
         inputClassName="bg-white min-h-60"
         inputRing="ring-0"
         inputRadius="rounded-xl"

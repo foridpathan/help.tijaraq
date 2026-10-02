@@ -7,6 +7,7 @@ import {
   DashboardSidenavChildrenProps,
 } from '@common/ui/dashboard-layout/dashboard-sidenav';
 import {ReactElement, ReactNode} from 'react';
+import '@app/help-center/hc-content-header.css';
 
 interface Props {
   children: ReactNode;
@@ -30,7 +31,7 @@ export function ArticlePageLayout({
       <DashboardNavbar
         color="bg"
         menuPosition="header"
-        className="sticky top-0 z-10 flex-shrink-0"
+        className="hc-content-navbar sticky top-0 z-10 flex-shrink-0"
         size="md"
       >
         <HcSearchBar categoryId={categoryId} />

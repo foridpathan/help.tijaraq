@@ -15,6 +15,8 @@ import {BreadcrumbItem} from '@ui/breadcrumbs/breadcrumb-item';
 import {Trans} from '@ui/i18n/trans';
 import {ChevronRightIcon} from '@ui/icons/material/ChevronRight';
 import {useSettings} from '@ui/settings/use-settings';
+import {slugifyString} from '@ui/utils/string/slugify-string';
+import '@app/help-center/hc-content-header.css';
 import clsx from 'clsx';
 import {useEffect, useRef} from 'react';
 import {Link, useParams} from 'react-router';
@@ -22,16 +24,25 @@ import {Link, useParams} from 'react-router';
 export function Component() {
   const alreadyScrolled = useRef(false);
   const {hcLanding} = useSettings();
-  const {categoryId, sectionId} = useParams();
+  const {categoryId, sectionId, categorySlug, categoryPart, sectionPart} =
+    useParams();
+  const activeCategorySlug =
+    categorySlug ||
+    (!/^\d+$/.test(categoryPart || '') ? categoryPart : undefined);
+  const sectionSlug = activeCategorySlug ? sectionPart : undefined;
 
   const query = useSuspenseQuery(
-    helpCenterQueries.categories.get(sectionId || categoryId!),
+    activeCategorySlug
+      ? helpCenterQueries.categories.getBySlug(activeCategorySlug, sectionSlug)
+      : helpCenterQueries.categories.get(
+          sectionId || categoryId || categoryPart!,
+        ),
   );
   const category = query.data.category;
 
   useEffect(() => {
-    if (sectionId && !alreadyScrolled.current) {
-      const element = document.getElementById(`section-${sectionId}`);
+    if ((sectionId || sectionSlug) && !alreadyScrolled.current) {
+      const element = document.getElementById(`section-${category.id}`);
       if (element) {
         element.scrollIntoView({
           behavior: 'smooth',
@@ -40,14 +51,14 @@ export function Component() {
         alreadyScrolled.current = true;
       }
     }
-  }, [sectionId]);
+  }, [sectionId, sectionSlug, category.id]);
 
   return (
     <div>
       <Navbar
         color="bg"
         menuPosition="header"
-        className="sticky top-0 z-10 flex-shrink-0"
+        className="hc-content-navbar sticky top-0 z-10 flex-shrink-0"
         size="md"
       >
         <HcSearchBar
@@ -80,14 +91,17 @@ export function Component() {
               id={`section-${section.id}`}
               className={clsx(
                 'rounded-panel border p-12',
-                sectionId === `${section.id}` &&
+                (sectionId === `${section.id}` ||
+                  sectionSlug === slugifyString(section.name)) &&
                   'border-primary/40 shadow-xl shadow-primary/4',
               )}
             >
               <h2
                 className={clsx(
                   'mx-12 mb-12 border-b pb-20 pt-8 text-xl font-medium',
-                  sectionId === `${section.id}` && 'text-primary',
+                  (sectionId === `${section.id}` ||
+                    sectionSlug === slugifyString(section.name)) &&
+                    'text-primary',
                 )}
               >
                 <CategoryLink category={section} />

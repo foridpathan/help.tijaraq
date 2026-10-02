@@ -16,7 +16,7 @@ export function MultiProductArticleGrid() {
     helpCenterQueries.categories.landingPageData(),
   );
   return (
-    <div className="grid grid-cols-1 gap-20 md:grid-cols-2">
+    <div className="hc-home-product-grid">
       {query.data.categories.map(category => (
         <CategoryRow key={category.id} category={category} />
       ))}
@@ -33,7 +33,7 @@ function CategoryRow({category}: CategoryRowProps) {
   return (
     <Fragment>
       <div
-        className="cursor-pointer rounded-xl border p-24 transition-shadow hover:shadow"
+        className="hc-home-product-card"
         onClick={() => navigate(getCategoryLink(category))}
       >
         <div className="flex items-center gap-10">
@@ -44,7 +44,7 @@ function CategoryRow({category}: CategoryRowProps) {
               src={category.image}
             />
           )}
-          <h2 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-[21px] font-medium">
+          <h2 className="hc-home-product-title">
             <CategoryLink
               category={category}
               onClick={e => e.stopPropagation()}
@@ -55,7 +55,7 @@ function CategoryRow({category}: CategoryRowProps) {
           <p className="mt-10 text-sm">{category.description}</p>
         )}
       </div>
-      <div className="rounded-xl border">
+      <div className="hc-home-product-sections">
         {category.sections
           ?.slice(0, 3)
           .map((section, index) =>
@@ -81,7 +81,7 @@ function SectionItem({className, section}: ArticleRowProps) {
   return (
     <div
       className={clsx(
-        'flex cursor-pointer items-center gap-12 p-12',
+        'hc-home-product-section flex cursor-pointer items-center gap-12 p-12',
         className,
       )}
       onClick={() => navigate(getCategoryLink(section))}

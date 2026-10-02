@@ -50,10 +50,10 @@ export function getArticleLink(
   if (!section && article.path?.length) {
     section = article.path[1];
   }
-  const slug = article.slug ?? slugifyString(article.title);
+  const slug = article.slug || slugifyString(article.title);
   let link = !section
-    ? `/hc/articles/${article.id}/${slug}`
-    : `/hc/articles/${section?.parent_id}/${section?.id}/${article.id}/${slug}`;
+    ? `/hc/articles/${slug}`
+    : `/hc/articles/${slugifyString(article.path?.[0]?.name || section.parent_name || section.parent?.name || '')}/${slugifyString(section.name)}/${slug}`;
 
   if (absolute) {
     link = `${getBootstrapData().settings.base_url}${link}`;

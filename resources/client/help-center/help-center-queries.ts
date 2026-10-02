@@ -44,6 +44,18 @@ export const helpCenterQueries = {
     },
     getForArticlePage: (params: ArticlePageQueryOptionsParams) =>
       articlePageQueryOptions<ArticlePageData>(params, 'articlePage'),
+    getForArticleSlugPage: (params: ArticleSlugPageQueryOptionsParams) =>
+      queryOptions<ArticlePageData>({
+        queryKey: ['articles', 'slug', params],
+        staleTime: Infinity,
+        queryFn: () => {
+          const path =
+            params.categorySlug && params.sectionSlug
+              ? `${params.categorySlug}/${params.sectionSlug}/${params.articleSlug}`
+              : params.articleSlug;
+          return get(`hc/public/articles/${path}`, {loader: 'articlePage'});
+        },
+      }),
     getForUpdateArticlePage: (params: ArticlePageQueryOptionsParams) =>
       articlePageQueryOptions<UpdateArticlePageData>(params, 'updateArticle'),
     search: (
@@ -76,6 +88,14 @@ export const helpCenterQueries = {
 
   categories: {
     invalidateKey: ['articles'],
+    getBySlug: (categorySlug: string, sectionSlug?: string) =>
+      queryOptions<CategoryPageData>({
+        queryKey: ['articles', 'categories', 'slug', categorySlug, sectionSlug],
+        queryFn: () =>
+          get(
+            `hc/public/categories/${categorySlug}${sectionSlug ? `/${sectionSlug}` : ''}`,
+          ),
+      }),
     landingPageData: () =>
       queryOptions<HcLandingPageData>({
         queryKey: ['articles', 'landing-page'],
@@ -180,6 +200,11 @@ interface ArticlePageQueryOptionsParams {
   articleId: number | string;
   categoryId?: string | number;
   sectionId?: string | number;
+}
+interface ArticleSlugPageQueryOptionsParams {
+  articleSlug: string;
+  categorySlug?: string;
+  sectionSlug?: string;
 }
 function articlePageQueryOptions<R>(
   {articleId, categoryId, sectionId}: ArticlePageQueryOptionsParams,

@@ -75,6 +75,7 @@ class HcLandingPageLoader
                             'name' => $section->name,
                             'image' => $section->image,
                             'parent_id' => $section->parent_id,
+                            'parent_name' => $category->name,
                             'description' => $section->description,
                             'is_section' => true,
                             'hide_from_structure' =>

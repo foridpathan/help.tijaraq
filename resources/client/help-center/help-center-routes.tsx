@@ -8,18 +8,37 @@ import {searchParamsFromUrl} from '@ui/utils/urls/search-params-from-url';
 import {Params, replace, RouteObject} from 'react-router';
 
 const articlePageLoader = async (params: Params) => {
+  const isLegacyThreePart =
+    params.articlePart && /^\d+$/.test(params.articlePart);
+  const articleId =
+    params.articleId || (isLegacyThreePart ? params.articlePart : undefined);
   return await queryClient.ensureQueryData(
-    helpCenterQueries.articles.getForArticlePage({
-      articleId: params.articleId!,
-      categoryId: params.categoryId,
-      sectionId: params.sectionId,
-    }),
+    !articleId
+      ? helpCenterQueries.articles.getForArticleSlugPage({
+          articleSlug: params.articleSlug || params.articlePart!,
+          categorySlug: params.categoryPart,
+          sectionSlug: params.sectionPart,
+        })
+      : helpCenterQueries.articles.getForArticlePage({
+          articleId,
+          categoryId: params.categoryId || params.categoryPart,
+          sectionId: params.sectionId || params.sectionPart,
+        }),
   );
 };
 
 const categoryPageLoader = async (params: Params) => {
+  const categorySlug =
+    params.categorySlug ||
+    (!/^\d+$/.test(params.categoryPart || '')
+      ? params.categoryPart
+      : undefined);
   return await queryClient.ensureQueryData(
-    helpCenterQueries.categories.get(params.sectionId || params.categoryId!),
+    categorySlug
+      ? helpCenterQueries.categories.getBySlug(categorySlug, params.sectionPart)
+      : helpCenterQueries.categories.get(
+          params.sectionId || params.categoryId || params.categoryPart!,
+        ),
   );
 };
 
@@ -37,13 +56,19 @@ export const helpCenterRoutes: RouteObject[] = [
           ),
       },
       {
+        path: 'articles/:articleSlug',
+        lazy: () =>
+          import('@app/help-center/articles/article-page/article-page'),
+        loader: async ({params}) => articlePageLoader(params),
+      },
+      {
         path: 'articles/:articleId/:articleSlug',
         lazy: () =>
           import('@app/help-center/articles/article-page/article-page'),
         loader: async ({params}) => articlePageLoader(params),
       },
       {
-        path: 'articles/:categoryId/:sectionId/:articleId',
+        path: 'articles/:categoryPart/:sectionPart/:articlePart',
         lazy: () =>
           import('@app/help-center/articles/article-page/article-page'),
         loader: async ({params}) => articlePageLoader(params),
@@ -55,12 +80,17 @@ export const helpCenterRoutes: RouteObject[] = [
         loader: async ({params}) => articlePageLoader(params),
       },
       {
+        path: 'categories/:categorySlug',
+        lazy: () => import('@app/help-center/categories/category-page'),
+        loader: async ({params}) => categoryPageLoader(params),
+      },
+      {
         path: 'categories/:categoryId/:sectionId/:slug',
         lazy: () => import('@app/help-center/categories/category-page'),
         loader: async ({params}) => categoryPageLoader(params),
       },
       {
-        path: 'categories/:categoryId/:slug',
+        path: 'categories/:categoryPart/:sectionPart',
         lazy: () => import('@app/help-center/categories/category-page'),
         loader: async ({params}) => categoryPageLoader(params),
       },
@@ -79,9 +109,7 @@ export const helpCenterRoutes: RouteObject[] = [
       {
         path: 'tickets',
         lazy: () =>
-          import(
-            '@app/help-center/tickets-portal/ticklets-table/tickets-table-page'
-          ),
+          import('@app/help-center/tickets-portal/ticklets-table/tickets-table-page'),
         loader: async ({request}) => {
           const redirect = authGuard();
           if (redirect) return redirect;
@@ -100,9 +128,7 @@ export const helpCenterRoutes: RouteObject[] = [
       {
         path: 'tickets/new',
         lazy: () =>
-          import(
-            '@app/help-center/tickets-portal/new-ticket-page/new-ticket-page'
-          ),
+          import('@app/help-center/tickets-portal/new-ticket-page/new-ticket-page'),
         loader: async () => {
           if (
             (!auth.isLoggedIn &&

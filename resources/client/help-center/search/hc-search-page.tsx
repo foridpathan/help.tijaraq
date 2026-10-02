@@ -14,6 +14,7 @@ import {ArticleIcon} from '@ui/icons/material/Article';
 import {IllustratedMessage} from '@ui/images/illustrated-message';
 import {SvgImage} from '@ui/images/svg-image';
 import {useParams} from 'react-router';
+import '@app/help-center/hc-content-header.css';
 
 export function Component() {
   const navigate = useNavigate();
@@ -35,7 +36,11 @@ export function Component() {
 
   return (
     <div>
-      <Navbar menuPosition="header" color="bg">
+      <Navbar
+        menuPosition="header"
+        color="bg"
+        className="hc-content-navbar sticky top-0 z-10"
+      >
         <HcSearchBar />
       </Navbar>
       <main className="container mx-auto px-24 pb-48">

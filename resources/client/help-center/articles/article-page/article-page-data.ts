@@ -27,6 +27,7 @@ export interface ArticlePageData extends BackendResponse {
     id: number;
     name: string;
     parent_id: number | null;
+    parent_name?: string;
     articles: {
       id: number;
       title: string;

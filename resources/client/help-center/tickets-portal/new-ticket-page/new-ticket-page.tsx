@@ -13,6 +13,7 @@ import {Breadcrumb} from '@ui/breadcrumbs/breadcrumb';
 import {BreadcrumbItem} from '@ui/breadcrumbs/breadcrumb-item';
 import {Trans} from '@ui/i18n/trans';
 import {useEffect} from 'react';
+import '@app/help-center/hc-content-header.css';
 
 export function Component() {
   const {isInsideSettingsPreview: isAppearanceEditorActive} =
@@ -44,7 +45,11 @@ export function Component() {
 
   return (
     <div>
-      <Navbar color="bg" menuPosition="header" className="sticky top-0 z-10">
+      <Navbar
+        color="bg"
+        menuPosition="header"
+        className="hc-content-navbar sticky top-0 z-10"
+      >
         <HcSearchBar />
       </Navbar>
       <div className="container mx-auto px-12 pb-48 md:px-24">
