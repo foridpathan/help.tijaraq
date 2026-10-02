@@ -195,7 +195,10 @@ class TijaraqChatAiTest extends TestCase
         ]);
 
         $this->asUser($agent)->getJson('/api/v1/tijaraq-chat/conversations?agent=1')
-            ->assertOk()->assertJsonFragment(['id' => $id]);
+            ->assertOk()
+            ->assertJsonFragment(['id' => $id])
+            ->assertJsonPath('conversations.0.user.name', $customer->name)
+            ->assertJsonPath('conversations.0.latest_message.body', 'Need support');
         $this->asUser($agent)->postJson("/api/v1/tijaraq-chat/conversations/$id/messages", [
             'message' => 'We can help',
         ])->assertCreated();

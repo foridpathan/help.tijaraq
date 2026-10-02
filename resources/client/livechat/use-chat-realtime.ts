@@ -31,7 +31,7 @@ export function useChatRealtime(agent: boolean, currentId: number | null) {
       type: 'private',
       events: ['chat.changed'],
       callback: event => {
-        refreshList ||= event.kind === 'created';
+        refreshList = true;
         refreshThread ||= event.conversationId === currentId;
         if (timer) clearTimeout(timer);
         timer = setTimeout(() => {

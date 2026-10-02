@@ -27,11 +27,16 @@ class ChatController extends Controller
             $query->where('user_id', $request->user()->id);
         }
 
+        $conversations = $query->with([
+            'user:id,name',
+            'latestMessage:id,conversation_id,type,body,author,created_at',
+        ])->latest('id')->limit(50)->get([
+            'id', 'subject', 'user_id', 'status_category', 'created_at', 'updated_at',
+        ]);
+
         return response()->json([
             'enabled' => (bool) settings('chat.enabled', true),
-            'conversations' => $query->latest('id')->limit(50)->get([
-                'id', 'subject', 'user_id', 'status_category', 'created_at', 'updated_at',
-            ]),
+            'conversations' => $conversations,
         ]);
     }
 
@@ -58,9 +63,9 @@ class ChatController extends Controller
         $this->authorizeChat($conversation);
 
         return response()->json([
-            'conversation' => $conversation->only([
+            'conversation' => $conversation->load('user:id,name')->only([
                 'id', 'subject', 'user_id', 'status_category', 'created_at', 'updated_at',
-            ]),
+            ]) + ['user' => $conversation->user],
             'messages' => $conversation->messages()
                 ->orderByDesc('id')
                 ->limit(200)
