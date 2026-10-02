@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Core\Install;
+namespace Common\Database;
 
 use Common\Settings\LoadDefaultSettings;
 use Common\Settings\Models\Setting;

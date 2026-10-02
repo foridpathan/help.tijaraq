@@ -13,7 +13,6 @@ module.exports = {
     './modules/ai/resources/client/**/*.ts*',
     './modules/envato/resources/client/**/*.ts*',
     './modules/livechat/resources/client/**/*.ts*',
-    './common/foundation/resources/views/install/**/*.blade.php',
     './common/foundation/resources/views/framework.blade.php',
   ],
   darkMode: 'class',

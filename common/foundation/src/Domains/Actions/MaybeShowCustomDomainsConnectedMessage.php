@@ -20,7 +20,6 @@ class MaybeShowCustomDomainsConnectedMessage
 
         if (
             config('app.enable_custom_domains') &&
-            config('app.installed') &&
             !app(AppUrl::class)->envAndCurrentHostsAreEqual
         ) {
             $message = app(AppUrl::class)->matchedCustomDomain

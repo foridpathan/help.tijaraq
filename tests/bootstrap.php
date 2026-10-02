@@ -2,12 +2,9 @@
 
 /**
  * Builds the throw-away test database once per run: drops every table in
- * help_tijrak_test, migrates and seeds it the same way the installer does.
+ * help_tijrak_test, migrates and seeds it with the application defaults.
  */
 
-use Common\Core\Install\CreateDefaultCustomPages;
-use Common\Core\Install\CreateDefaultMenus;
-use Common\Core\Install\InsertDefaultSettings;
 use Common\Database\MigrateAndSeed;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +27,4 @@ if (DB::connection()->getDatabaseName() !== 'help_tijrak_test') {
 Schema::defaultStringLength(191);
 Schema::dropAllTables();
 
-(new MigrateAndSeed())->execute(function () {
-    (new InsertDefaultSettings())->execute();
-    (new CreateDefaultMenus())->execute();
-    (new CreateDefaultCustomPages())->execute();
-});
+(new MigrateAndSeed())->execute();

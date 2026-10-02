@@ -29,6 +29,7 @@ Thumbs.db
 /storage/tntsearch/*.index
 .htaccess
 /public/.htaccess
+/public/build
 /public/favicon
 /public/favicon.ico
 /install_files

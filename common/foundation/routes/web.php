@@ -4,13 +4,11 @@ use Common\Auth\Controllers\SocialAuthController;
 use Common\Auth\Controllers\TwoFactorQrCodeController;
 use Common\Billing\Invoices\InvoiceController;
 use Common\Core\Controllers\HomeController;
-use Common\Core\Install\InstallController;
 use Common\Csv\BaseCsvExportController;
 use Common\Domains\CustomDomainController;
 use Common\Files\Controllers\DownloadFileController;
 use Common\Settings\Mail\ConnectGmailAccountController;
 use Common\Workspaces\Controllers\WorkspaceMembersController;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'web'], function () {
@@ -102,26 +100,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('register', [HomeController::class, 'show'])->name('register');
 });
 
-if (!config('app.installed')) {
-    Route::get('install', [InstallController::class, 'introductionStep'])->name(
-        'install',
-    );
-    Route::get('install/requirements', [
-        InstallController::class,
-        'requirementsStep',
-    ]);
-    Route::get('install/database', [InstallController::class, 'databaseStep']);
-    Route::post('install/database/validate', [
-        InstallController::class,
-        'insertAndValidateDatabaseCredentials',
-    ])->withoutMiddleware(ValidateCsrfToken::class);
-    Route::get('install/admin', [InstallController::class, 'adminStep']);
-    Route::post('install/admin/validate', [
-        InstallController::class,
-        'validateAdminCredentials',
-    ])->withoutMiddleware(ValidateCsrfToken::class);
-    Route::get('install/finalize', [InstallController::class, 'finalizeStep']);
-}
+// Old setup URLs must not fall through to the frontend application.
+Route::any('install/{path?}', fn() => abort(404))->where('path', '.*');
 
 Route::get('sw.js', function () {
     return response()

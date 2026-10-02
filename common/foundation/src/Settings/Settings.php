@@ -221,11 +221,6 @@ class Settings
     {
         $this->all = collect();
 
-        // prevent using cache during package discover, if "settings" helper is used in route files
-        if (!config('app.installed')) {
-            return;
-        }
-
         $value = Cache::get('settings.public');
 
         if ($value && count($value) > 0) {

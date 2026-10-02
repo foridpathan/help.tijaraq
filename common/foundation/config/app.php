@@ -19,7 +19,6 @@ return [
     'demo_password' => env('DEMO_ADMIN_PASSWORD'),
     'demo_email' => env('DEMO_ADMIN_EMAIL'),
     'demo' => env('IS_DEMO_SITE', false),
-    'installed' => env('INSTALLED', false),
     'use_new_uploading' => env('USE_NEW_UPLOADING', false),
     'envato_purchase_code' => env('ENVATO_PURCHASE_CODE', null),
     'service_worker_integrated' => env('SERVICE_WORKER_INTEGRATED', false),

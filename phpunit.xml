@@ -20,7 +20,6 @@
         <!-- tests run against their own throw-away database, never the real one -->
         <env name="APP_ENV" value="testing" force="true"/>
         <env name="APP_DEBUG" value="false" force="true"/>
-        <env name="INSTALLED" value="true" force="true"/>
         <env name="DB_CONNECTION" value="mysql" force="true"/>
         <env name="DB_DATABASE" value="help_tijrak_test" force="true"/>
         <env name="CACHE_STORE" value="array" force="true"/>

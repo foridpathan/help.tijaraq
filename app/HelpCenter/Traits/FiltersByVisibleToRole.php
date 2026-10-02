@@ -18,9 +18,12 @@ trait FiltersByVisibleToRole
                         'visible_to_role',
                         Auth::user()?->roles->pluck('id'),
                     ),
-                    fn($q) => $q->orWhere(
-                        'visible_to_role',
-                        app('guestRole')->id,
+                    fn($q) => $q->when(
+                        app('guestRole'),
+                        fn($q, $guestRole) => $q->orWhere(
+                            'visible_to_role',
+                            $guestRole->id,
+                        ),
                     ),
                 );
         });

@@ -5,7 +5,6 @@ namespace Common\Core;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class AppUrl
 {
@@ -33,7 +32,7 @@ class AppUrl
     public function init(): static
     {
         $this->originalAppUrl = config('app.url');
-        if (config('app.dynamic_app_url') || !config('app.installed')) {
+        if (config('app.dynamic_app_url')) {
             $this->maybeDynamicallyUpdate();
         } else {
             $this->envAndCurrentHostsAreEqual = true;
@@ -66,16 +65,11 @@ class AppUrl
         $customDomainsEnabled = config('app.enable_custom_domains');
         $endsWithSlash = Str::endsWith(Arr::get($envParts, 'path', ''), '/');
 
-        // update app.url if not installed yet, or if only scheme, slash or www is different
+        // update app.url if only scheme, slash or www is different
         if (
-            ($this->envAndCurrentHostsAreEqual || !config('app.installed')) &&
+            $this->envAndCurrentHostsAreEqual &&
             ($schemeIsDifferent || $endsWithSlash || !$hostsWithWwwAreEqual)
         ) {
-            if (!config('app.installed')) {
-                $this->handleInstallationAppUrl();
-                return;
-            }
-
             $this->newAppUrl =
                 $request->getSchemeAndHttpHost() .
                 rtrim(Arr::get($envParts, 'path'), '/');
@@ -101,40 +95,6 @@ class AppUrl
                 config(['app.url' => $this->newAppUrl]);
             }
         }
-    }
-
-    protected function handleInstallationAppUrl(): void
-    {
-        // create new request so main laravel request is not instantiated yet,
-        // and "normalizeRequestUri" on CommonProvider works properly
-        $request = SymfonyRequest::createFromGlobals();
-
-        $pathParts = [
-            ...explode('/', $request->getBaseUrl()),
-            ...explode('/', $request->getPathInfo()),
-        ];
-
-        $pathParts = array_values(
-            array_filter($pathParts, fn($part) => $part !== ''),
-        );
-
-        // get path parts up to "install" segment (if it exists), in case site is not installed at root domain
-        $domainParts = [];
-        foreach ($pathParts as $key => $part) {
-            if ($part !== 'install') {
-                $domainParts[] = $part;
-            } else {
-                break;
-            }
-        }
-
-        $this->newAppUrl = request()->getSchemeAndHttpHost();
-
-        if (!empty($pathParts)) {
-            $this->newAppUrl .= '/' . implode('/', $domainParts);
-        }
-
-        config(['app.url' => $this->newAppUrl]);
     }
 
     protected function registerHtmlBaseUri(): void

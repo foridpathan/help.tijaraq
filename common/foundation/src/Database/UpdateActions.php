@@ -1,12 +1,10 @@
 <?php
 
-namespace Common\Core\Install;
+namespace Common\Database;
 
-use Common\Database\MigrateAndSeed;
 use Common\Settings\DotEnvEditor;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
 class UpdateActions
@@ -19,11 +17,7 @@ class UpdateActions
         //fix "index is too long" issue on MariaDB and older mysql versions
         Schema::defaultStringLength(191);
 
-        app(MigrateAndSeed::class)->execute(function () {
-            (new InsertDefaultSettings())->execute();
-            (new CreateDefaultMenus())->execute();
-            (new CreateDefaultCustomPages())->execute();
-        });
+        app(MigrateAndSeed::class)->execute();
 
         if (
             file_exists(base_path('env.example')) &&
@@ -38,9 +32,7 @@ class UpdateActions
                 $currentEnvValues,
             );
             $envValuesToWrite['app_version'] = $envExampleValues['app_version'];
-            $envValuesToWrite['installed'] = true;
-
-            // mark mail as setup if app was installed before this setting was added.
+            // Preserve existing mail setup; initialize the flag for older environments.
             if (!isset($currentEnvValues['mail_setup'])) {
                 $envValuesToWrite['mail_setup'] = true;
             }

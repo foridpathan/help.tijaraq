@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\Core\Install\Commands;
+namespace Common\Core\Commands;
 
-use Common\Core\Install\UpdateActions;
+use Common\Database\UpdateActions;
 use Illuminate\Console\Command;
 
 class RunUpdateActionsCommand extends Command

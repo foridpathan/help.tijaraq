@@ -34,8 +34,7 @@ use Common\Core\Commands\SeedCommand;
 use Common\Core\Commands\UpdateSimplePaginateTables;
 use Common\Core\Contracts\AppUrlGenerator;
 use Common\Core\Exceptions\BaseExceptionHandler;
-use Common\Core\Install\RedirectIfNotInstalledMiddleware;
-use Common\Core\Install\Commands\RunUpdateActionsCommand;
+use Common\Core\Commands\RunUpdateActionsCommand;
 use Common\Core\Middleware\EnableDebugIfLoggedInAsAdmin;
 use Common\Core\Middleware\EnsureEmailIsVerified;
 use Common\Core\Middleware\EnsureFrontendRequestsAreStateful;
@@ -117,7 +116,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -188,15 +186,6 @@ class CommonServiceProvider extends ServiceProvider
             'data-keep' => 'true',
         ]);
 
-        // install/update page components
-        Blade::component(
-            'common::install.components.install-layout',
-            'install-layout',
-        );
-        Blade::component(
-            'common::install.components.install-button',
-            'install-button',
-        );
     }
 
     public function register()
@@ -409,14 +398,6 @@ class CommonServiceProvider extends ServiceProvider
 
     private function registerMiddleware(): void
     {
-        if (!config('app.installed')) {
-            $this->app['router']->pushMiddlewareToGroup(
-                'web',
-                RedirectIfNotInstalledMiddleware::class,
-            );
-            return;
-        }
-
         $aliasMiddleware = [
             'isAdmin' => IsAdmin::class,
             'verified' => EnsureEmailIsVerified::class,
