@@ -8,8 +8,6 @@ import {Trans} from '@ui/i18n/trans';
 import {ArrowRightAltIcon} from '@ui/icons/material/ArrowRightAlt';
 import {KeyboardArrowRightIcon} from '@ui/icons/material/KeyboardArrowRight';
 import {useSettings} from '@ui/settings/use-settings';
-import clsx from 'clsx';
-import {Fragment} from 'react';
 
 export function ArticleGrid() {
   const query = useSuspenseQuery(
@@ -18,11 +16,9 @@ export function ArticleGrid() {
 
   return (
     <div className="hc-home-article-groups">
-      {query.data.categories.map(category => (
+      {query.data.categories.map((category, index) => (
         <section key={category.id} className="hc-home-article-group">
-          {query.data.categories.length > 1 && !category.hide_from_structure ? (
-            <ParentCategoryHeader category={category} />
-          ) : null}
+          <ParentCategoryHeader category={category} index={index + 1} />
           <CategoriesGrid categories={category.sections} />
         </section>
       ))}
@@ -32,28 +28,33 @@ export function ArticleGrid() {
 
 type ParentCategoryHeaderProps = {
   category: LandingPageDataCategory;
+  index: number;
 };
-function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
+function ParentCategoryHeader({category, index}: ParentCategoryHeaderProps) {
   if (!category.name) {
     return null;
   }
   return (
-    <Fragment>
-      <h2
-        className={clsx(
-          'hc-home-category-heading flex items-center gap-10',
-          category.image && 'mb-6',
-        )}
-      >
+    <div className="hc-home-group-header">
+      <div className="hc-home-group-identity">
+        <span className="hc-home-group-index">{String(index).padStart(2, '0')}</span>
         {category.image && (
-          <HcCategoryImage src={category.image} className="h-30 w-30 rounded" />
+          <HcCategoryImage src={category.image} className="hc-home-group-image h-40 w-40 rounded" />
         )}
-        <CategoryLink category={category} />
-      </h2>
-      {category.description && (
-        <p className="hc-home-category-description">{category.description}</p>
-      )}
-    </Fragment>
+        <div>
+          <span className="hc-home-group-label"><Trans message="CATEGORY" /></span>
+          <h2 className="hc-home-category-heading">
+            <CategoryLink category={category} />
+          </h2>
+          {category.description && (
+            <p className="hc-home-category-description">{category.description}</p>
+          )}
+        </div>
+      </div>
+      <CategoryLink category={category} className="hc-home-group-link">
+        <Trans message="Explore category" /> <ArrowRightAltIcon size="sm" />
+      </CategoryLink>
+    </div>
   );
 }
 
@@ -81,6 +82,7 @@ function ArticleGridItem({category}: ArticleGridItemProps) {
   return (
     <div className="hc-home-article-card">
       <div className="hc-home-article-card-heading">
+        <span className="hc-home-card-eyebrow"><Trans message="SECTION" /></span>
         <div className="flex items-center gap-4">
           {category.image && (
             <HcCategoryImage src={category.image} iconSize="w-20 h-20" />
@@ -92,6 +94,9 @@ function ArticleGridItem({category}: ArticleGridItemProps) {
         <div className="hc-home-article-card-description">
           {category.description}
         </div>
+        <span className="hc-home-card-count">
+          <Trans message=":count articles" values={{count: category.articles_count}} />
+        </span>
       </div>
 
       <div className="hc-home-article-links">

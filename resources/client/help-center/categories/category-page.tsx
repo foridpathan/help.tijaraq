@@ -39,6 +39,13 @@ export function Component() {
         ),
   );
   const category = query.data.category;
+  const visibleSections = category.is_section
+    ? query.data.categoryNav.filter(section => section.id === category.id)
+    : query.data.categoryNav;
+  const visibleArticleCount = visibleSections.reduce(
+    (total, section) => total + section.articles.length,
+    0,
+  );
 
   useEffect(() => {
     if ((sectionId || sectionSlug) && !alreadyScrolled.current) {
@@ -65,61 +72,77 @@ export function Component() {
           categoryId={category.is_section ? category.parent_id : category?.id}
         />
       </Navbar>
-      <div className="container mx-auto mb-60 p-14 md:p-24">
+      <div className="hc-category-page">
         <PageBreadcrumb category={category} />
-        {category.hide_from_structure ? (
-          <div>
-            <div className="mb-4 mt-44 flex items-center gap-8">
-              {category.image && (
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="h-28 w-28 rounded object-cover"
+        <header className="hc-category-hero">
+          <div className="hc-category-hero-copy">
+            <span className="hc-content-eyebrow">
+              <Trans message={category.is_section ? 'SECTION' : 'CATEGORY'} />
+            </span>
+            <h1>{category.name}</h1>
+            {category.description && <p>{category.description}</p>}
+            <div className="hc-category-hero-meta">
+              {!category.is_section && (
+                <>
+                  <span><Trans message=":count sections" values={{count: visibleSections.length}} /></span>
+                  <span aria-hidden="true">·</span>
+                </>
+              )}
+              <span>
+                <Trans
+                  message=":count articles"
+                  values={{count: visibleArticleCount}}
                 />
-              )}
-              <h1 className="text-3xl font-semibold">
-                {category.parent ? category.parent.name : category.name}
-              </h1>
+              </span>
             </div>
-            <p className="text-sm">{category.description}</p>
           </div>
-        ) : null}
-        <div className="mt-34 space-y-22">
-          {query.data.categoryNav.map(section => (
-            <div
-              key={section.id}
-              id={`section-${section.id}`}
-              className={clsx(
-                'rounded-panel border p-12',
-                (sectionId === `${section.id}` ||
-                  sectionSlug === slugifyString(section.name)) &&
-                  'border-primary/40 shadow-xl shadow-primary/4',
-              )}
-            >
-              <h2
+          {category.image && <img src={category.image} alt="" className="hc-category-hero-image" />}
+        </header>
+        <div className="hc-category-layout">
+          <aside className="hc-category-aside">
+            <span className="hc-content-eyebrow"><Trans message="IN THIS CATEGORY" /></span>
+            <nav aria-label="Sections">
+              {query.data.categoryNav.map(section => (
+                <a key={section.id} href={`#section-${section.id}`}>
+                  <span>{section.name}</span>
+                  <span>{section.articles.length}</span>
+                </a>
+              ))}
+            </nav>
+          </aside>
+          <main className="hc-category-sections">
+            <div className="hc-category-list-heading">
+              <span className="hc-content-eyebrow"><Trans message="BROWSE GUIDES" /></span>
+              <h2><Trans message={category.is_section ? 'Explore articles' : 'Explore sections'} /></h2>
+            </div>
+            {visibleSections.map((section, index) => (
+              <section
+                key={section.id}
+                id={`section-${section.id}`}
                 className={clsx(
-                  'mx-12 mb-12 border-b pb-20 pt-8 text-xl font-medium',
-                  (sectionId === `${section.id}` ||
-                    sectionSlug === slugifyString(section.name)) &&
-                    'text-primary',
+                  'hc-category-section',
+                  (sectionId === `${section.id}` || sectionSlug === slugifyString(section.name)) && 'hc-category-section--active',
                 )}
               >
-                <CategoryLink category={section} />
-              </h2>
-              <div>
-                {section.articles.map(article => (
-                  <Link
-                    key={article.id}
-                    to={getArticleLink(article, {section})}
-                    className="flex cursor-pointer items-center justify-between gap-8 rounded-panel p-12 text-sm transition-button hover:bg-hover"
-                  >
-                    {article.title}
-                    <ChevronRightIcon size="sm" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
+                <div className="hc-category-section-heading">
+                  <span className="hc-category-section-index">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <span className="hc-content-eyebrow"><Trans message="SECTION" /></span>
+                    <h3><CategoryLink category={section} /></h3>
+                    <p><Trans message=":count articles" values={{count: section.articles.length}} /></p>
+                  </div>
+                </div>
+                <div className="hc-category-article-list">
+                  {section.articles.map(article => (
+                    <Link key={article.id} to={getArticleLink(article, {section})} className="hc-category-article-link">
+                      <span>{article.title}</span>
+                      <ChevronRightIcon size="sm" />
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </main>
         </div>
       </div>
       {hcLanding?.show_footer && <Footer className="px-40" />}
@@ -135,8 +158,7 @@ function PageBreadcrumb({category}: PageBreadcrumbProps) {
   const categories: {id: number; name: string}[] = [category];
   if (
     category.is_section &&
-    category.parent &&
-    !category.parent.hide_from_structure
+    category.parent
   ) {
     categories.unshift(category.parent);
   }

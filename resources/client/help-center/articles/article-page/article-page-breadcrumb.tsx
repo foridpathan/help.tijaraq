@@ -22,9 +22,6 @@ export function ArticlePageBreadcrumb({path}: Props) {
         <Trans message="Help center" />
       </BreadcrumbItem>
       {path.map(category => {
-        if (category.hide_from_structure) {
-          return null;
-        }
         return (
           <BreadcrumbItem
             key={`${category.parent_id}-${category.id}`} // prevent duplicate keys

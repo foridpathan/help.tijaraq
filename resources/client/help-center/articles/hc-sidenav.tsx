@@ -36,7 +36,7 @@ export function HcSidenav({categoryNav, isCompact, activeArticleId}: Props) {
   return (
     <Fragment>
       <div
-        className="compact-scrollbar sticky w-350 overflow-y-auto overflow-x-hidden bg py-24 pl-24 pr-32 stable-scrollbar md:h-[calc(100dvh-64px)] lg:top-64 lg:py-64 lg:pl-32 xl:pl-48 xl:pr-64"
+        className="hc-article-sidebar compact-scrollbar sticky w-350 overflow-y-auto overflow-x-hidden bg py-24 pl-24 pr-32 stable-scrollbar md:h-[calc(100dvh-64px)] lg:top-64 lg:py-64 lg:pl-32 xl:pl-48 xl:pr-64"
         id="article-sidenav"
         ref={scrollContainer}
       >
@@ -50,6 +50,7 @@ export function HcSidenav({categoryNav, isCompact, activeArticleId}: Props) {
             <CloseIcon />
           </IconButton>
         </div>
+        <div className="hc-article-sidebar-label"><Trans message="BROWSE THIS CATEGORY" /></div>
         <nav className="text-base lg:text-sm">
           <ul role="list" className="space-y-36">
             {categoryNav.map(section => (

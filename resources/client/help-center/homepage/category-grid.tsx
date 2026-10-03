@@ -9,8 +9,6 @@ import {LandingPageDataCategory} from '@app/help-center/homepage/hc-landing-page
 import {useSuspenseQuery} from '@tanstack/react-query';
 import {Trans} from '@ui/i18n/trans';
 import {KeyboardArrowRightIcon} from '@ui/icons/material/KeyboardArrowRight';
-import clsx from 'clsx';
-import {Fragment} from 'react';
 import {Link} from 'react-router';
 
 export function CategoryGrid() {
@@ -20,15 +18,9 @@ export function CategoryGrid() {
 
   return (
     <div className="hc-home-category-groups">
-      {query.data.categories.map(category => (
+      {query.data.categories.map((category, index) => (
         <section key={category.id} className="hc-home-category-group">
-          {query.data.categories.length > 1 && !category.hide_from_structure ? (
-            <ParentCategoryHeader category={category} />
-          ) : (
-            <h2 className="hc-home-category-heading">
-              <Trans message="Categories" />
-            </h2>
-          )}
+          <ParentCategoryHeader category={category} index={index + 1} />
           <CategoriesGrid categories={category.sections} />
         </section>
       ))}
@@ -39,28 +31,33 @@ export function CategoryGrid() {
 
 type ParentCategoryHeaderProps = {
   category: LandingPageDataCategory;
+  index: number;
 };
-function ParentCategoryHeader({category}: ParentCategoryHeaderProps) {
+function ParentCategoryHeader({category, index}: ParentCategoryHeaderProps) {
   if (!category.name) {
     return null;
   }
   return (
-    <Fragment>
-      <h2
-        className={clsx(
-          'hc-home-category-heading flex items-center gap-10',
-          category.image && 'mb-6',
-        )}
-      >
+    <div className="hc-home-group-header">
+      <div className="hc-home-group-identity">
+        <span className="hc-home-group-index">{String(index).padStart(2, '0')}</span>
         {category.image && (
-          <HcCategoryImage src={category.image} className="h-30 w-30 rounded" />
+          <HcCategoryImage src={category.image} className="hc-home-group-image h-40 w-40 rounded" />
         )}
-        <CategoryLink category={category} />
-      </h2>
-      {category.description && (
-        <p className="hc-home-category-description">{category.description}</p>
-      )}
-    </Fragment>
+        <div>
+          <span className="hc-home-group-label"><Trans message="CATEGORY" /></span>
+          <h2 className="hc-home-category-heading">
+            <CategoryLink category={category} />
+          </h2>
+          {category.description && (
+            <p className="hc-home-category-description">{category.description}</p>
+          )}
+        </div>
+      </div>
+      <CategoryLink category={category} className="hc-home-group-link">
+        <Trans message="Explore category" /> <KeyboardArrowRightIcon size="sm" />
+      </CategoryLink>
+    </div>
   );
 }
 
@@ -83,6 +80,7 @@ interface CategoryGridItemProps {
 function CategoryGridItem({category}: CategoryGridItemProps) {
   return (
     <Link to={getCategoryLink(category)} className="hc-home-category-card">
+      <span className="hc-home-card-eyebrow"><Trans message="SECTION" /></span>
       <div className="hc-home-category-card-top">
         {category.image && (
           <HcCategoryImage

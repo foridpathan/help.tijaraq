@@ -25,6 +25,7 @@ export function ArticlePageLayout({
     <DashboardLayout
       height="h-auto"
       gridClassName="hc-grid"
+      className="hc-article-page"
       name="hc-article"
       blockBodyOverflow={false}
     >
@@ -45,7 +46,7 @@ export function ArticlePageLayout({
         {leftSidenav}
       </DashboardSidenav>
       <DashboardContent isScrollable={false}>
-        <div className="min-w-0 max-w-672 px-16 py-16 md:py-64 lg:max-w-none lg:px-32 xl:px-64">
+        <div className="hc-article-content min-w-0 max-w-672 px-16 py-16 md:py-64 lg:max-w-none lg:px-32 xl:px-64">
           {children}
         </div>
       </DashboardContent>

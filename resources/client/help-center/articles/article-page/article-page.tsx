@@ -75,11 +75,12 @@ export function Component() {
       categoryId={query.data.article.path?.[0]?.id}
     >
       <PageMetaTags query={query} />
-      <article key="article">
+      <article key="article" className="hc-article-surface">
         <header className="hc-article-heading mb-36">
           {!!query.data.article.path?.length && (
             <ArticlePageBreadcrumb path={query.data.article.path} />
           )}
+          <span className="hc-content-eyebrow"><Trans message="HELP ARTICLE" /></span>
           <div className="mt-4 flex items-center gap-4">
             <h1 className="text-4xl font-bold">{query.data.article.title}</h1>
             {canEdit && (
@@ -100,7 +101,7 @@ export function Component() {
         />
       </article>
       {!settings.article?.hide_new_ticket_link && (
-        <div className="my-50 border-y py-50">
+        <div className="hc-article-help">
           <Trans
             message="Have more questions? <a>Submit a request</a>"
             values={{
@@ -113,7 +114,7 @@ export function Component() {
           />
         </div>
       )}
-      <ArticlePageFeedback articleId={query.data.article.id} />
+      <ArticlePageFeedback articleId={query.data.article.id} className="hc-article-feedback" />
     </ArticlePageLayout>
   );
 }
@@ -154,7 +155,7 @@ function RightSidenav({nav}: RightSidenavProps) {
   }, [nav]);
 
   return (
-    <div className="dashboard-grid-sidenav-right compact-scrollbar hidden w-224 xl:flex xl:w-288">
+    <div className="hc-article-toc dashboard-grid-sidenav-right compact-scrollbar hidden w-224 xl:flex xl:w-288">
       {!!nav?.length ? (
         <nav className="sticky top-64 h-[calc(100dvh-64px)] w-full py-64 pr-32 xl:pr-64">
           <div className="flex items-center gap-8">
